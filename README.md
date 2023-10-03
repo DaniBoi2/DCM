@@ -1,6 +1,6 @@
 # Introduction to get the environment running on your computer and some basic git/github
 
-First install Python 3.11.6 from https://www.python.org/downloads/release/python-3116/
+First install Python 3.11.6 from https://www.python.org/downloads/release/python-3116/ After that, restart your device
 
 1. Get the remote repository (main branch on github) onto your local repository (your own computer), using the command
    'git clone https://github.com/username/DCM.git' where username is your actual github username.
