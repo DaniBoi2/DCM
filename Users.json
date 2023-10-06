@@ -1,32 +1,32 @@
 [
-  {
-    "username": "john_doe",
-    "password": "John123",
-    "name": "John Doe",
-    "email": "john@example.com"
-  },
-  {
-    "username": "alice_smith",
-    "password": "madHatter",
-    "name": "Alice Smith",
-    "email": "alice@example.com"
-  },
-  {
-    "username": "bob_johnson",
-    "password": "bobbyflay",
-    "name": "Bob Johnson",
-    "email": "bob@example.com"
-  },
-  {
-    "username": "susan_wilson",
-    "password": "SWIL999",
-    "name": "Susan Wilson",
-    "email": "susan@example.com"
-  },
-  {
-    "username": "mike_adams",
-    "password": "adamIke321",
-    "name": "Mike Adams",
-    "email": "mike@example.com"
-  }
+    {
+        "username": "john_doe",
+        "password": "John123",
+        "name": "John Doe",
+        "email": "john@example.com"
+    },
+    {
+        "username": "alice_smith",
+        "password": "madHatter",
+        "name": "Alice Smith",
+        "email": "alice@example.com"
+    },
+    {
+        "username": "bob_johnson",
+        "password": "bobbyflay",
+        "name": "Bob Johnson",
+        "email": "bob@example.com"
+    },
+    {
+        "username": "susan_wilson",
+        "password": "SWIL999",
+        "name": "Susan Wilson",
+        "email": "susan@example.com"
+    },
+    {
+        "username": "mike_adams",
+        "password": "adamIke321",
+        "name": "Mike Adams",
+        "email": "mike@example.com"
+    }
 ]
