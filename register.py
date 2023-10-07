@@ -13,7 +13,7 @@ def register_file():
     def register():
         if ((entry_username.get() == "") or (entry_password.get() == "") or (entry_name.get() == "") or (entry_email.get() == "")):
             label_bottom.config(text="All fields must contain content, please try again")   #If all fields are not filled
-        elif (not entry_name.get().isalpha()):
+        elif (not entry_name.get().replace(" ", "").isalpha()):  #Spaces are allowed for full names, so it gets rid of them first
             label_bottom.config(text="Invalid name, only alphabets allowed, please try again")   # If there are non alphabets in the name field
         elif (num_dicts >= max_users_allowed):    # If max number of users already in json file
             label_bottom.config(text="The maximum number of user accounts have already been created")
