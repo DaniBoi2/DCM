@@ -1,25 +1,13 @@
 [
     {
         "username": "john_doe",
-        "password": "John123",
+        "password": "John1233",
         "name": "John Doe",
         "email": "john@example.com"
     },
     {
-        "username": "alice_smith",
-        "password": "madHatter",
-        "name": "Alice Smith",
-        "email": "alice@example.com"
-    },
-    {
-        "username": "bob_johnson",
-        "password": "bobbyflay",
-        "name": "Bob Johnson",
-        "email": "bob@example.com"
-    },
-    {
         "username": "susan_wilson",
-        "password": "SWIL999",
+        "password": "SWIL9999",
         "name": "Susan Wilson",
         "email": "susan@example.com"
     },
@@ -28,5 +16,11 @@
         "password": "adamIke321",
         "name": "Mike Adams",
         "email": "mike@example.com"
+    },
+    {
+        "username": "H",
+        "password": "qwer1234",
+        "name": "Hassan Nasir",
+        "email": "Nasirs14@mcmaster.ca"
     }
 ]
