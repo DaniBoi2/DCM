@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import *
 import json
-import time
 
 def admin_file():
     def delete_user_data():

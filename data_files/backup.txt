@@ -1,0 +1,5 @@
+{"username": "john_doe", "password": "John1233", "name": "John Doe", "email": "john@example.com"}
+{"username": "susan_wilson", "password": "SWIL9999", "name": "Susan Wilson", "email": "susan@example.com"}
+{"username": "mike_adams", "password": "adamIke321", "name": "Mike Adams", "email": "mike@example.com"}
+{"username": "H", "password": "qwer1234", "name": "Hassan Nasir", "email": "Nasirs14@mcmaster.ca"}
+{"username": "wqdqwd", "password": "qwdqwdefwe", "name": "efwe", "email": "qwdwq"}

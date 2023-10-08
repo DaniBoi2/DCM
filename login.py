@@ -3,7 +3,7 @@ from tkinter import *
 import json
 import time
 from register import register_file
-from main_screen import main_screen_file
+#from main_screen import main_screen_file
 from adminWindow import admin_file
 admin_u = "admin"
 admin_p = "dsh"
@@ -45,15 +45,11 @@ def login_file():
         register_file()   #Go to register file
     
     def goto_mainScreen():  #Used to go to main screen of the program with all of the stateflow settings
-        time.sleep(1.5)
         login_window.withdraw()
-        time.sleep(0.2)
-        main_screen_file()
+        #main_screen_file()
 
     def goto_adminWindow():  #Goes to admin window where users.json contents can be deleted
-        time.sleep(1)
         login_window.withdraw()
-        time.sleep(0.2)
         admin_file()
 
     # Create the main window
