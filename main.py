@@ -17,7 +17,6 @@ class Pacemaker_GUI():
         self.welcome.title("Welcome!")
         self.welcome.geometry("800x300")
         self.welcome.resizable(False, False)
-
         self.label_top = tk.Label(self.welcome, text="Welcome to the Pacemaker Control Platform!", font=("Helvetica", 22), pady = 30)
         self.label_top.pack()
         self.label_middle = tk.Label(self.welcome, text="Proceed to Login or Registration Below", font=("Helvetica", 17), pady = 15)
@@ -26,7 +25,9 @@ class Pacemaker_GUI():
         self.button_login.pack()
         self.button_registration = tk.Button(self.welcome, text="Registration", font=("Helvetica", 14), command=self.register_screen)
         self.button_registration.pack(pady=10)
-    
+        self.button_exit = tk.Button(self.welcome, text="Exit", font=("Helvetica", 12), command=exit)  #Used to properly close the program
+        self.button_exit.pack(side="left", padx=10)
+
     def run(self):
         self.welcome.mainloop()
     
@@ -43,6 +44,8 @@ class Pacemaker_GUI():
                 label_bottom.config(text="The maximum number of user accounts have already been created")
             elif (len(entry_password.get()) <= 7):   #If password is 7 or less characters
                 label_bottom.config(text="Password must be at least 8 characters, please try again")
+            elif (len(entry_name.get()) >= 35):   #Name shouldn't be too long or displaying it in main screen can cause visual errors
+                label_bottom.config(text="Please enter a shorter name and try again")
             else:   #Consolidating inputted user data
                 user_items.append({"username": entry_username.get(), "password": entry_password.get(), "name": entry_name.get(), "email": entry_email.get()})
                 
@@ -97,11 +100,11 @@ class Pacemaker_GUI():
 
         def login():
             if (entry_username.get() == self.admin_u and entry_password.get() == self.admin_p):
-                label_bottom.config(text="Logging in as administrator")
-                entry_username.delete(0, END)   
-                entry_password.delete(0, END)   #Make entry widgets empty
+                if self.register_window_open: self.register_window.withdraw()  #Hide register screen if its deemed open
                 login_window.withdraw()
                 self.admin_screen()
+            elif (len(users) == 0):  #Displays this message if there are no saved users
+                label_bottom.config(text="There are no saved users. Please register")
             else:
                 for user in users:
                     JSON_username = user.get("username")
@@ -111,8 +114,7 @@ class Pacemaker_GUI():
                     if(entry_username.get() == JSON_username and entry_password.get() == JSON_password):
                         entry_username.delete(0, END)
                         entry_password.delete(0, END)   #Make entry widgets empty
-                        if self.register_window_open:  #Hide register screen if its deemed open
-                            self.register_window.withdraw()
+                        if self.register_window_open: self.register_window.withdraw()  #Hide register screen if its deemed open
                         self.welcome.withdraw()  #Hide welcome 
                         login_window.withdraw() #Hide login screen
                         self.main_screen(JSON_fullname)  #Go to main screen with user full name so it can be displayed in corner
@@ -161,7 +163,7 @@ class Pacemaker_GUI():
         # Create the window, labels, entry widgets, button, etc.
         admin_page = tk.Tk()
         admin_page.title("Admin Settings")
-        admin_page.geometry("400x100")
+        admin_page.geometry("400x120")
         admin_page.resizable(False, False)
         top_label = tk.Label(admin_page, text="Would you like to delete all saved user data?")
         top_label.pack()
@@ -169,15 +171,34 @@ class Pacemaker_GUI():
         button_delete.pack()
         label_bottom = tk.Label(admin_page, text="")
         label_bottom.pack()
+        label_bottomName = tk.Label(admin_page, text="Logged in as admin")
+        label_bottomName.pack(pady=(20, 0), anchor="n")  # Putting it at bottom 
 
-    def main_screen(self,user_name):
+    def main_screen(self,user_name): #Main screen pops up
+        def logout(): 
+            main_window.withdraw()  #At logout, hide main screen window and show welcome screen again
+            self.welcome.deiconify()
         main_window = tk.Tk()
         main_window.title("Pacemaker Control Platform")
-        main_window.geometry("800x300")
+        main_window.geometry("810x350")
         main_window.resizable(False, False)
         label_topLeft =tk.Label(main_window, text="Logged in as " + user_name)
         label_topLeft.grid(row=0, column=0, sticky="nw")  # Putting it at top left
+        label_top =tk.Label(main_window, text="Pacemaker Control Platform",font=("Helvetica", 15))
+        label_top.grid(row=0, column=1, columnspan=2, sticky="n", pady=(0,10))  # Putting it at top left
+        button_logout = tk.Button(main_window, text="Logout", command=logout)
+        button_logout.grid(row=0, column=5, sticky="ne")
+
+        # 4 Buttons for AOO,VOO,AAI,VVI
+        button_AOO = tk.Button(main_window, text="AOO")
+        button_AOO.grid(row=2, column=0, sticky="n", padx=(130,65))  #Extra padding on its left side so its equal distance away from the edge
+        button_VOO = tk.Button(main_window, text="VOO")
+        button_VOO.grid(row=2, column=1, sticky="n", padx=65)
+        button_AAI = tk.Button(main_window, text="AAI")
+        button_AAI.grid(row=2, column=2, sticky="n", padx=65)
+        button_VVI = tk.Button(main_window, text="VVI")
+        button_VVI.grid(row=2, column=3, sticky="n", padx=65)
     
-if __name__ == "__main__":
+if __name__ == "__main__": #Used to make sure that the program is run directly and that it's not imported anywhere
     pacemaker = Pacemaker_GUI()
     pacemaker.run()
