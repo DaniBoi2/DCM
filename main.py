@@ -185,7 +185,7 @@ class Pacemaker_GUI():
         label_topLeft =tk.Label(main_window, text="Logged in as " + user_name)
         label_topLeft.grid(row=0, column=0, sticky="nw")  # Putting it at top left
         label_top =tk.Label(main_window, text="Pacemaker Control Platform",font=("Helvetica", 15))
-        label_top.grid(row=0, column=1, columnspan=2, sticky="n", pady=(0,10))  # Putting it at top left
+        label_top.grid(row=0, column=1, columnspan=2, sticky="n", pady=(0,10))  # Putting it at top
         button_logout = tk.Button(main_window, text="Logout", command=logout)
         button_logout.grid(row=0, column=5, sticky="ne")
 
