@@ -14,8 +14,12 @@ class Pacemaker_GUI():
         self.register_window_open = False  #flag declared due to errors with closing the register window upon successful login
 
         self.welcome = tk.Tk()
+        self.width_screen = self.welcome.winfo_screenwidth() # width of the user screen
+        self.height_screen = self.welcome.winfo_screenheight() # height of the user screen
+        self.x_offset = int((self.width_screen/2) - (800/2) - 40) # calculate x offset coordinates for the window position
+        self.y_offset = int((self.height_screen/2) - (300/2) - 80)  # calculate y offset coordinates for the window position
         self.welcome.title("Welcome!")
-        self.welcome.geometry("800x300")
+        self.welcome.geometry(f"800x300+{self.x_offset}+{self.y_offset}") #Displaying it in the center of the user screen
         self.welcome.resizable(False, False)
         self.label_top = tk.Label(self.welcome, text="Welcome to the Pacemaker Control Platform!", font=("Helvetica", 22), pady = 30)
         self.label_top.pack()
@@ -63,7 +67,7 @@ class Pacemaker_GUI():
         # Create the window, labels, entry widgets, button, etc.
         self.register_window = tk.Tk()
         self.register_window.title("Register")
-        self.register_window.geometry("400x250")
+        self.register_window.geometry(f"400x250+{self.x_offset}+{self.y_offset}")  #Displaying it roughly in the center of the user screen
         self.register_window.protocol("WM_DELETE_WINDOW", self.on_register_window_close)  #Will use the function upon closure
         self.register_window_open = True  #Setting flag to true as window is open now
         self.register_window.resizable(False, False)  #Make window non-resizable 
@@ -107,20 +111,16 @@ class Pacemaker_GUI():
                 label_bottom.config(text="There are no saved users. Please register")
             else:
                 for user in users:
-                    JSON_username = user.get("username")
-                    JSON_password = user.get("password")
-                    JSON_fullname = user.get("name")
-                    
-                    if(entry_username.get() == JSON_username and entry_password.get() == JSON_password):
+                    if(entry_username.get() == user.get("username") and entry_password.get() == user.get("password")):
                         entry_username.delete(0, END)
                         entry_password.delete(0, END)   #Make entry widgets empty
                         if self.register_window_open: self.register_window.withdraw()  #Hide register screen if its deemed open
                         self.welcome.withdraw()  #Hide welcome 
                         login_window.withdraw() #Hide login screen
-                        self.main_screen(JSON_fullname)  #Go to main screen with user full name so it can be displayed in corner
+                        self.main_screen(user.get("name"))  #Go to main screen with user full name so it can be displayed in corner
                     elif(entry_username.get() == "" or entry_password.get() == ""):
                         label_bottom.config(text="Please enter your credentials")
-                    elif(entry_username.get() != JSON_username or entry_password.get() != JSON_password):
+                    elif(entry_username.get() != user.get("username") or entry_password.get() != user.get("password")):
                         label_bottom.config(text="Login Credentials Invalid")
                     else:
                         label_bottom.config(text="Please fill in both username and password fields")
@@ -128,7 +128,7 @@ class Pacemaker_GUI():
         # Create the window, labels, entry widgets, button, etc.
         login_window = tk.Tk()
         login_window.title("Login")
-        login_window.geometry("400x210")
+        login_window.geometry(f"400x210+{self.x_offset}+{self.y_offset}")  #Displaying it roughly in the center of the user screen
         login_window.resizable(False, False)
         top_label = tk.Label(login_window, text="Login into an existing account", )
         top_label.pack()
@@ -149,21 +149,17 @@ class Pacemaker_GUI():
     
     def admin_screen(self): #Admin window pops up
         def delete_user_data():
-            with open(self.filename, "r") as user_file:  #Open in read mode
-                user_items = json.load(user_file)  # Load json file and read contents
+            with open(self.filename, "r") as user_file: user_items = json.load(user_file)  #Open in read mode and load json file and read contents
             with open(self.backup_file, "a") as backup_file:  #Save contents to backup txt file, appends to everything else
-                for user in user_items:
-                    backup_file.write(json.dumps(user) + "\n")
-            with open(self.filename, "w") as user_file:  #Open json file in write mode to delete everything
-                user_file.write("[]")  #Write empty json array so it can be appended through registration
-
+                for user in user_items: backup_file.write(json.dumps(user) + "\n")  # Backup every user data by writing it to txt file
+            with open(self.filename, "w") as user_file: user_file.write("[]")  #Open in write mode to delete everything, empty json array so it can be appended through registration
             label_bottom.config(text="All data has been deleted!")  
             button_delete.config(state="disabled")      
         
         # Create the window, labels, entry widgets, button, etc.
         admin_page = tk.Tk()
         admin_page.title("Admin Settings")
-        admin_page.geometry("400x120")
+        admin_page.geometry(f"400x120+{self.x_offset}+{self.y_offset}")  #Displaying it roughly in the center of the user screen
         admin_page.resizable(False, False)
         top_label = tk.Label(admin_page, text="Would you like to delete all saved user data?")
         top_label.pack()
@@ -178,25 +174,35 @@ class Pacemaker_GUI():
         def logout(): 
             main_window.withdraw()  #At logout, hide main screen window and show welcome screen again
             self.welcome.deiconify()
+        def AOO_pressed():
+            label_state.config(text="State: AOO")
+        def VOO_pressed():
+            label_state.config(text="State: VOO")
+        def AAI_pressed():
+            label_state.config(text="State: AAI")
+        def VVI_pressed():
+            label_state.config(text="State: VVI")
         main_window = tk.Tk()
         main_window.title("Pacemaker Control Platform")
-        main_window.geometry("810x350")
+        main_window.geometry(f"810x350+{self.x_offset}+{self.y_offset}")  #Displaying it roughly in the center of the user screen
         main_window.resizable(False, False)
         label_topLeft =tk.Label(main_window, text="Logged in as " + user_name)
         label_topLeft.grid(row=0, column=0, sticky="nw")  # Putting it at top left
         label_top =tk.Label(main_window, text="Pacemaker Control Platform",font=("Helvetica", 15))
-        label_top.grid(row=0, column=1, columnspan=2, sticky="n", pady=(0,10))  # Putting it at top left
+        label_top.grid(row=0, column=1, columnspan=2, sticky="n", pady=(0,10))  # Putting it at top
         button_logout = tk.Button(main_window, text="Logout", command=logout)
         button_logout.grid(row=0, column=5, sticky="ne")
+        label_state = tk.Label(main_window, text="State")
+        label_state.grid(row=2, column=0, sticky="nw")
 
         # 4 Buttons for AOO,VOO,AAI,VVI
-        button_AOO = tk.Button(main_window, text="AOO")
+        button_AOO = tk.Button(main_window, text="AOO", command=AOO_pressed)
         button_AOO.grid(row=2, column=0, sticky="n", padx=(130,65))  #Extra padding on its left side so its equal distance away from the edge
-        button_VOO = tk.Button(main_window, text="VOO")
-        button_VOO.grid(row=2, column=1, sticky="n", padx=65)
-        button_AAI = tk.Button(main_window, text="AAI")
-        button_AAI.grid(row=2, column=2, sticky="n", padx=65)
-        button_VVI = tk.Button(main_window, text="VVI")
+        button_VOO = tk.Button(main_window, text="VOO", command=VOO_pressed)
+        button_VOO.grid(row=2, column=2, sticky="n", padx=65)
+        button_AAI = tk.Button(main_window, text="AAI", command=AAI_pressed)
+        button_AAI.grid(row=2, column=1, sticky="n", padx=65)
+        button_VVI = tk.Button(main_window, text="VVI", command=VVI_pressed)
         button_VVI.grid(row=2, column=3, sticky="n", padx=65)
     
 if __name__ == "__main__": #Used to make sure that the program is run directly and that it's not imported anywhere
