@@ -75,19 +75,19 @@ class Pacemaker_GUI():
         label.pack()
         name_label = tk.Label(self.register_window, text = "Full Name:")
         name_label.pack()
-        entry_name = tk.Entry(self.register_window)
+        entry_name = tk.Entry(self.register_window, width=30)
         entry_name.pack()
         email_label = tk.Label(self.register_window, text = "Email:")
         email_label.pack()
-        entry_email = tk.Entry(self.register_window)
+        entry_email = tk.Entry(self.register_window, width=30)
         entry_email.pack()
         username_label = tk.Label(self.register_window, text = "Username:")
         username_label.pack()
-        entry_username = tk.Entry(self.register_window)
+        entry_username = tk.Entry(self.register_window, width=30)
         entry_username.pack()
         password_label = tk.Label(self.register_window, text="Password:")
         password_label.pack()
-        entry_password = tk.Entry(self.register_window, show="*")  # Use "show" to hide the password
+        entry_password = tk.Entry(self.register_window, width=30, show="*")  # Use "show" to hide the password
         entry_password.pack()
         button_register = tk.Button(self.register_window, text="Register", command=register)
         button_register.pack()
@@ -133,13 +133,13 @@ class Pacemaker_GUI():
         top_label.pack()
         username_label = tk.Label(login_window, text = "Username:")
         username_label.pack()
-        entry_username = tk.Entry(login_window)
+        entry_username = tk.Entry(login_window, width=30)
         entry_username.pack()
         space_label = tk.Label(login_window)
         space_label.pack()
         password_label = tk.Label(login_window, text="Password:")
         password_label.pack()
-        entry_password = tk.Entry(login_window, show="*")  # Use "show" to hide the password
+        entry_password = tk.Entry(login_window, width=30, show="*")  # Use "show" to hide the password
         entry_password.pack()
         button_login = tk.Button(login_window, text="Login", command=login)
         button_login.pack(pady=10)
@@ -184,7 +184,7 @@ class Pacemaker_GUI():
 
         main_window = tk.Tk()
         main_window.title("Pacemaker Control Platform")
-        main_window.geometry(f"810x400+{self.x_offset}+{self.y_offset}")  #Displaying it roughly in the center of the user screen
+        main_window.geometry(f"840x400+{self.x_offset}+{self.y_offset}")  #Displaying it roughly in the center of the user screen
         main_window.resizable(False, False)
         label_topLeft =tk.Label(main_window, text="Logged in as " + user_name)
         label_topLeft.grid(row=0, column=0, sticky="nw")  # Putting it at top left
@@ -220,6 +220,14 @@ class Pacemaker_GUI():
         label_ventricular_pulse_width.grid(row=8, column=0, pady=10, padx=(20,0), sticky="w")
         label_ventricular_sensitivity = tk.Label(main_window, text="Ventricular Sensitivity (units) (range)")
         label_ventricular_sensitivity.grid(row=9, column=0, pady=10, padx=(20,0), sticky="w")
+
+        #Entry widgets for programmable parameters in left column
+        entry_LLR = tk.Entry(main_window, width=8, justify="center")
+        entry_LLR.grid(row=3, column=1, pady=(20,10), padx=(20,0), sticky="w")
+        entry_LLR.insert(-1, "0") #Default value
+        entry_URL = tk.Entry(main_window, width=8, justify="center")
+        entry_URL.grid(row=4, column=1, pady=10, padx=(20,0), sticky="w")
+        entry_URL.insert(-1, "0")
 
         #Displaying programmable parameters labels in 2nd column
         label_atrial_sensitivity = tk.Label(main_window, text="Atrial Sensitivity (units) (range)")
