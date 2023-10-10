@@ -67,7 +67,7 @@ class Pacemaker_GUI():
         # Create the window, labels, entry widgets, button, etc.
         self.register_window = tk.Tk()
         self.register_window.title("Register")
-        self.register_window.geometry(f"400x250+{self.x_offset}+{self.y_offset}")  #Displaying it roughly in the center of the user screen
+        self.register_window.geometry(f"400x260+{self.x_offset}+{self.y_offset}")  #Displaying it roughly in the center of the user screen
         self.register_window.protocol("WM_DELETE_WINDOW", self.on_register_window_close)  #Will use the function upon closure
         self.register_window_open = True  #Setting flag to true as window is open now
         self.register_window.resizable(False, False)  #Make window non-resizable 
@@ -90,7 +90,7 @@ class Pacemaker_GUI():
         entry_password = tk.Entry(self.register_window, width=30, show="*")  # Use "show" to hide the password
         entry_password.pack()
         button_register = tk.Button(self.register_window, text="Register", command=register)
-        button_register.pack()
+        button_register.pack(pady=10)
         label_bottom = tk.Label(self.register_window, text="")  #First initialzied as empty, used to display error msgs
         label_bottom.pack()
     
@@ -223,11 +223,11 @@ class Pacemaker_GUI():
 
         #Entry widgets for programmable parameters in left column
         entry_LLR = tk.Entry(main_window, width=8, justify="center")
-        entry_LLR.grid(row=3, column=1, pady=(20,10), padx=(20,0), sticky="w")
-        entry_LLR.insert(-1, "0") #Default value
+        entry_LLR.grid(row=3, column=1, pady=(20,10), padx=(5,0), sticky="w")
+        entry_LLR.insert(-1, "0") #Default value of 0
         entry_URL = tk.Entry(main_window, width=8, justify="center")
-        entry_URL.grid(row=4, column=1, pady=10, padx=(20,0), sticky="w")
-        entry_URL.insert(-1, "0")
+        entry_URL.grid(row=4, column=1, pady=10, padx=(5,0), sticky="w")
+        entry_URL.insert(-1, "0")  #Default value of 0
 
         #Displaying programmable parameters labels in 2nd column
         label_atrial_sensitivity = tk.Label(main_window, text="Atrial Sensitivity (units) (range)")
