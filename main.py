@@ -175,12 +175,142 @@ class Pacemaker_GUI():
             self.welcome.deiconify()
         def AOO_pressed():
             label_state.config(text="State:  AOO")
+
+            # grid_remove hides the widgets of states, but keeps their values
+            entry_LLR_VOO.grid_remove()
+            entry_URL_VOO.grid_remove()
+            entry_VA_VOO.grid_remove()
+            entry_VPW_VOO.grid_remove()
+            
+            entry_LLR_AAI.grid_remove()
+            entry_URL_AAI.grid_remove()
+            entry_AA_AAI.grid_remove()
+            entry_APW_AAI.grid_remove()
+            entry_AS_AAI.grid_remove()
+            entry_ARP_AAI.grid_remove()
+            entry_PVARP_AAI.grid_remove()
+            entry_H_AAI.grid_remove()
+            entry_RS_AAI.grid_remove()
+
+            entry_LLR_VVI.grid_remove()
+            entry_URL_VVI.grid_remove()
+            entry_VA_VVI.grid_remove()
+            entry_VPW_VVI.grid_remove()
+            entry_VS_VVI.grid_remove()
+            entry_VRP_VVI.grid_remove()
+            entry_H_VVI.grid_remove()
+            entry_RS_VVI.grid_remove()
+
+
+            entry_LLR_AAO.grid()
+            entry_URL_AAO.grid()
+            entry_AA_AAO.grid()
+            entry_APW_AAO.grid()
+
+            
+
         def VOO_pressed():
             label_state.config(text="State:  VOO")
+
+            entry_LLR_AAI.grid_remove()
+            entry_URL_AAI.grid_remove()
+            entry_AA_AAI.grid_remove()
+            entry_APW_AAI.grid_remove()
+            entry_AS_AAI.grid_remove()
+            entry_ARP_AAI.grid_remove()
+            entry_PVARP_AAI.grid_remove()
+            entry_H_AAI.grid_remove()
+            entry_RS_AAI.grid_remove()
+
+            entry_LLR_AAO.grid_remove()
+            entry_URL_AAO.grid_remove()
+            entry_AA_AAO.grid_remove()
+            entry_APW_AAO.grid_remove()
+
+            entry_LLR_VVI.grid_remove()
+            entry_URL_VVI.grid_remove()
+            entry_VA_VVI.grid_remove()
+            entry_VPW_VVI.grid_remove()
+            entry_VS_VVI.grid_remove()
+            entry_VRP_VVI.grid_remove()
+            entry_H_VVI.grid_remove()
+            entry_RS_VVI.grid_remove()
+
+
+            entry_LLR_VOO.grid()
+            entry_URL_VOO.grid()
+            entry_VA_VOO.grid()
+            entry_VPW_VOO.grid()
+
+
+
         def AAI_pressed():
             label_state.config(text="State:  AAI")
+
+            entry_LLR_AAO.grid_remove()
+            entry_URL_AAO.grid_remove()
+            entry_AA_AAO.grid_remove()
+            entry_APW_AAO.grid_remove()
+
+            entry_LLR_VOO.grid_remove()
+            entry_URL_VOO.grid_remove()
+            entry_VA_VOO.grid_remove()
+            entry_VPW_VOO.grid_remove()
+
+            entry_LLR_VVI.grid_remove()
+            entry_URL_VVI.grid_remove()
+            entry_VA_VVI.grid_remove()
+            entry_VPW_VVI.grid_remove()
+            entry_VS_VVI.grid_remove()
+            entry_VRP_VVI.grid_remove()
+            entry_H_VVI.grid_remove()
+            entry_RS_VVI.grid_remove()
+
+
+            entry_LLR_AAI.grid()
+            entry_URL_AAI.grid()
+            entry_AA_AAI.grid()
+            entry_APW_AAI.grid()
+            entry_AS_AAI.grid()
+            entry_ARP_AAI.grid()
+            entry_PVARP_AAI.grid()
+            entry_H_AAI.grid()
+            entry_RS_AAI.grid()
+
+            
+
         def VVI_pressed():
             label_state.config(text="State:  VVI")
+
+            entry_LLR_AAO.grid_remove()
+            entry_URL_AAO.grid_remove()
+            entry_AA_AAO.grid_remove()
+            entry_APW_AAO.grid_remove()
+
+            entry_LLR_VOO.grid_remove()
+            entry_URL_VOO.grid_remove()
+            entry_VA_VOO.grid_remove()
+            entry_VPW_VOO.grid_remove()
+
+            entry_LLR_AAI.grid_remove()
+            entry_URL_AAI.grid_remove()
+            entry_AA_AAI.grid_remove()
+            entry_APW_AAI.grid_remove()
+            entry_AS_AAI.grid_remove()
+            entry_ARP_AAI.grid_remove()
+            entry_PVARP_AAI.grid_remove()
+            entry_H_AAI.grid_remove()
+            entry_RS_AAI.grid_remove()
+
+            entry_LLR_VVI.grid()
+            entry_URL_VVI.grid()
+            entry_VA_VVI.grid()
+            entry_VPW_VVI.grid()
+            entry_VS_VVI.grid()
+            entry_VRP_VVI.grid()
+            entry_H_VVI.grid()
+            entry_RS_VVI.grid()
+
 
         main_window = tk.Tk()
         main_window.title("Pacemaker Control Platform")
@@ -221,13 +351,134 @@ class Pacemaker_GUI():
         label_ventricular_sensitivity = tk.Label(main_window, text="Ventricular Sensitivity (units) (range)")
         label_ventricular_sensitivity.grid(row=9, column=0, pady=10, padx=(20,0), sticky="w")
 
-        #Entry widgets for programmable parameters in left column
-        entry_LLR = tk.Entry(main_window, width=8, justify="center")
-        entry_LLR.grid(row=3, column=1, pady=(20,10), padx=(5,0), sticky="w")
-        entry_LLR.insert(-1, "0") #Default value of 0
-        entry_URL = tk.Entry(main_window, width=8, justify="center")
-        entry_URL.grid(row=4, column=1, pady=10, padx=(5,0), sticky="w")
-        entry_URL.insert(-1, "0")  #Default value of 0
+        #Entry widgets for AAO
+        entry_LLR_AAO = tk.Entry(main_window, width=8, justify="center")
+        entry_LLR_AAO.grid(row=3, column=1, pady=(20,10), padx=(5,0), sticky="w")
+        entry_LLR_AAO.insert(-1, "0") #Default value of 0
+        entry_LLR_AAO.grid_remove()
+
+        entry_URL_AAO = tk.Entry(main_window, width=8, justify="center")
+        entry_URL_AAO.grid(row=4, column=1, pady=10, padx=(5,0), sticky="w")
+        entry_URL_AAO.insert(-1, "0")  #Default value of 0
+        entry_URL_AAO.grid_remove()
+
+        entry_AA_AAO = tk.Entry(main_window, width=8, justify="center")
+        entry_AA_AAO.grid(row=5, column=1, pady=10, padx=(5,0), sticky="w")
+        entry_AA_AAO.insert(-1, "0")  #Default value of 0
+        entry_AA_AAO.grid_remove()
+
+        entry_APW_AAO = tk.Entry(main_window, width=8, justify="center")
+        entry_APW_AAO.grid(row=6, column=1, pady=10, padx=(5,0), sticky="w")
+        entry_APW_AAO.insert(-1, "0")  #Default value of 0
+        entry_APW_AAO.grid_remove()
+
+        #Entry widgets for VOO
+        entry_LLR_VOO = tk.Entry(main_window, width=8, justify="center")
+        entry_LLR_VOO.grid(row=3, column=1, pady=(20,10), padx=(5,0), sticky="w")
+        entry_LLR_VOO.insert(-1, "0") #Default value of 0
+        entry_LLR_VOO.grid_remove()
+
+        entry_URL_VOO = tk.Entry(main_window, width=8, justify="center")
+        entry_URL_VOO.grid(row=4, column=1, pady=10, padx=(5,0), sticky="w")
+        entry_URL_VOO.insert(-1, "0")  #Default value of 0
+        entry_URL_VOO.grid_remove()
+
+        entry_VA_VOO = tk.Entry(main_window, width=8, justify="center")
+        entry_VA_VOO.grid(row=7, column=1, pady=10, padx=(5,0), sticky="w")
+        entry_VA_VOO.insert(-1, "0")  #Default value of 0
+        entry_VA_VOO.grid_remove()
+
+        entry_VPW_VOO = tk.Entry(main_window, width=8, justify="center")
+        entry_VPW_VOO.grid(row=8, column=1, pady=10, padx=(5,0), sticky="w")
+        entry_VPW_VOO.insert(-1, "0")  #Default value of 0
+        entry_VPW_VOO.grid_remove()
+
+        #Entry widgets for AAI
+        entry_LLR_AAI = tk.Entry(main_window, width=8, justify="center")
+        entry_LLR_AAI.grid(row=3, column=1, pady=(20,10), padx=(5,0), sticky="w")
+        entry_LLR_AAI.insert(-1, "30") #Default value of 0
+        entry_LLR_AAI.grid_remove()
+        
+        entry_URL_AAI = tk.Entry(main_window, width=8, justify="center")
+        entry_URL_AAI.grid(row=4, column=1, pady=10, padx=(5,0), sticky="w")
+        entry_URL_AAI.insert(-1, "50")  #Default value of 0
+        entry_URL_AAI.grid_remove()
+        
+        entry_AA_AAI = tk.Entry(main_window, width=8, justify="center")
+        entry_AA_AAI.grid(row=5, column=1, pady=10, padx=(5,0), sticky="w")
+        entry_AA_AAI.insert(-1, "30")  #Default value of 0
+        entry_AA_AAI.grid_remove()
+
+        entry_APW_AAI = tk.Entry(main_window, width=8, justify="center")
+        entry_APW_AAI.grid(row=6, column=1, pady=10, padx=(5,0), sticky="w")
+        entry_APW_AAI.insert(-1, "80")  #Default value of 0
+        entry_APW_AAI.grid_remove()
+
+        entry_AS_AAI = tk.Entry(main_window, width=8, justify="center")
+        entry_AS_AAI.grid(row=3, column=3, pady=(20, 10), padx=(5,0), sticky="w")
+        entry_AS_AAI.insert(-1, "80")  #Default value of 0
+        entry_AS_AAI.grid_remove()
+
+        entry_ARP_AAI = tk.Entry(main_window, width=8, justify="center")
+        entry_ARP_AAI.grid(row=6, column=3, pady=10, padx=(5,0), sticky="w")
+        entry_ARP_AAI.insert(-1, "80")  #Default value of 0
+        entry_ARP_AAI.grid_remove()
+
+        entry_PVARP_AAI = tk.Entry(main_window, width=8, justify="center")
+        entry_PVARP_AAI.grid(row=6, column=3, pady=10, padx=(5,0), sticky="w")
+        entry_PVARP_AAI.insert(-1, "80")  #Default value of 0
+        entry_PVARP_AAI.grid_remove()
+
+        entry_H_AAI = tk.Entry(main_window, width=8, justify="center")
+        entry_H_AAI.grid(row=6, column=3, pady=10, padx=(5,0), sticky="w")
+        entry_H_AAI.insert(-1, "80")  #Default value of 0
+        entry_H_AAI.grid_remove()
+
+        entry_RS_AAI = tk.Entry(main_window, width=8, justify="center")
+        entry_RS_AAI.grid(row=6, column=3, pady=10, padx=(5,0), sticky="w")
+        entry_RS_AAI.insert(-1, "80")  #Default value of 0
+        entry_RS_AAI.grid_remove()
+
+        #Entry widgets for VVI
+        entry_LLR_VVI = tk.Entry(main_window, width=8, justify="center")
+        entry_LLR_VVI.grid(row=3, column=1, pady=(20,10), padx=(5,0), sticky="w")
+        entry_LLR_VVI.insert(-1, "0") #Default value of 0
+        entry_LLR_VVI.grid_remove()
+
+        entry_URL_VVI = tk.Entry(main_window, width=8, justify="center")
+        entry_URL_VVI.grid(row=4, column=1, pady=10, padx=(5,0), sticky="w")
+        entry_URL_VVI.insert(-1, "0")  #Default value of 0
+        entry_URL_VVI.grid_remove()
+
+        entry_VA_VVI = tk.Entry(main_window, width=8, justify="center")
+        entry_VA_VVI.grid(row=7, column=1, pady=10, padx=(5,0), sticky="w")
+        entry_VA_VVI.insert(-1, "0")  #Default value of 0
+        entry_VA_VVI.grid_remove()
+
+        entry_VPW_VVI = tk.Entry(main_window, width=8, justify="center")
+        entry_VPW_VVI.grid(row=8, column=1, pady=10, padx=(5,0), sticky="w")
+        entry_VPW_VVI.insert(-1, "0")  #Default value of 0
+        entry_VPW_VVI.grid_remove()
+
+        entry_VS_VVI = tk.Entry(main_window, width=8, justify="center")
+        entry_VS_VVI.grid(row=9, column=1, pady=10, padx=(5,0), sticky="w")
+        entry_VS_VVI.insert(-1, "0")  #Default value of 0
+        entry_VS_VVI.grid_remove()
+
+        entry_VRP_VVI = tk.Entry(main_window, width=8, justify="center")
+        entry_VRP_VVI.grid(row=5, column=3, pady=10, padx=(5,0), sticky="w")
+        entry_VRP_VVI.insert(-1, "0")  #Default value of 0
+        entry_VRP_VVI.grid_remove()
+
+        entry_H_VVI = tk.Entry(main_window, width=8, justify="center")
+        entry_H_VVI.grid(row=7, column=3, pady=10, padx=(5,0), sticky="w")
+        entry_H_VVI.insert(-1, "0")  #Default value of 0
+        entry_H_VVI.grid_remove()
+
+        entry_RS_VVI = tk.Entry(main_window, width=8, justify="center")
+        entry_RS_VVI.grid(row=8, column=3, pady=10, padx=(5,0), sticky="w")
+        entry_RS_VVI.insert(-1, "0")  #Default value of 0
+        entry_RS_VVI.grid_remove()
 
         #Displaying programmable parameters labels in 2nd column
         label_atrial_sensitivity = tk.Label(main_window, text="Atrial Sensitivity (units) (range)")
