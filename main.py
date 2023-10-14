@@ -174,9 +174,18 @@ class Pacemaker_GUI():
         with open(self.filename, 'r') as file:
             users = json.load(file)
 
-            user_index = 0
-            user = users[user_index]
+         
+            user_data = None
+            for user_dict in users:
+               
+                if user_dict["name"] == user_name:
+                    user_data = user_dict
+                    break
+
+            
+            user = user_data
             print(user)
+
         def logout(): 
             main_window.withdraw()  #At logout, hide main screen window and show welcome screen again
             self.welcome.deiconify()
