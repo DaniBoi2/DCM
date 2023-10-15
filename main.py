@@ -31,6 +31,7 @@ class Pacemaker_GUI():
         self.button_registration.pack(pady=10)
         self.button_exit = tk.Button(self.welcome, text="Exit", font=("Helvetica", 12), command=exit)  #Used to properly close the program
         self.button_exit.pack(side="left", padx=10)
+        
 
     def run(self):
         self.welcome.mainloop()
@@ -174,12 +175,13 @@ class Pacemaker_GUI():
         with open(self.filename, 'r') as file:
             users = json.load(file)
 
-         
+            
             user_data = None
             for user_dict in users:
                
                 if user_dict["name"] == user_name:
                     user_data = user_dict
+                    serial_num = user_dict["SerialNum"]
                     break
 
             
@@ -194,7 +196,7 @@ class Pacemaker_GUI():
         main_window.title("Pacemaker Control Platform")
         main_window.geometry(f"1200x400+{self.x_offset}+{self.y_offset}")  #Displaying it roughly in the center of the user screen
         main_window.resizable(False, False)
-        label_topLeft =tk.Label(main_window, text="Logged in as " + user_name)
+        label_topLeft =tk.Label(main_window, text="Logged in as " + user_name + ",  Serial Number: " + serial_num)
         label_topLeft.grid(row=0, column=0, sticky="nw")  # Putting it at top left
         label_top =tk.Label(main_window, text="Pacemaker Control Platform",font=("Helvetica", 15))
         label_top.grid(row=0, column=1, columnspan=2, sticky="n", pady=(0,10))  # Putting it at top
@@ -474,6 +476,9 @@ class Pacemaker_GUI():
             entry_H_VVI.grid()
             entry_RS_VVI.grid()
 
+        bad_param = tk.Label(main_window, text = " ")
+        bad_param.grid(row = 6, column = 5)
+
         def save_state(user_name):
              # Load the existing user data from the JSON file.
             with open(self.filename, 'r') as file:
@@ -482,40 +487,148 @@ class Pacemaker_GUI():
     # Find the user with the matching username.
             for user in users:
                 if user['name'] == user_name:
+                    flag = True
+                    bad_param.config(text = " ")
+
+                    #AAO Limit checker
+                    if(float(entry_LRL_AAO.get()) < 30 or float(entry_LRL_AAO.get()) > 175 ):
+                        bad_param.config(text = "AAO Lower Rate Limit is out of range")
+                        flag = False
+
+                    if(float(entry_URL_AAO.get()) < 50 or float(entry_URL_AAO.get()) > 175 ):
+                        bad_param.config(text = "AAO Upper Rate Limit is out of range")
+                        flag = False
+
+                    if(float(entry_AA_AAO.get()) != 0 and (float(entry_AA_AAO.get()) < 0.5 or float(entry_AA_AAO.get()) > 3.2) and (float(entry_AA_AAO.get()) < 3.5 or float(entry_AA_AAO.get()) > 7.0)):
+                        bad_param.config(text = "AAO Atrial Amplitude is out of range")
+                        flag = False
+
+                    if(float(entry_APW_AAO.get()) != 0.05 and (float(entry_APW_AAO.get()) < 0.1 or float(entry_APW_AAO.get()) > 1.9 )):
+                        bad_param.config(text = "AAO Atrial Pulse Width is out of range")
+                        flag = False
+
+                    #AAI Limit Checker
+                    if(float(entry_LRL_AAI.get()) < 30 or float(entry_LRL_AAI.get()) > 175 ):
+                        bad_param.config(text = "AAI Lower Rate Limit is out of range")
+                        flag = False
+
+                    if(float(entry_URL_AAI.get()) < 50 or float(entry_URL_AAI.get()) > 175 ):
+                        bad_param.config(text = "AAI Upper Rate Limit is out of range")
+                        flag = False
+
+                    if(float(entry_AA_AAI.get()) != 0 and (float(entry_AA_AAI.get()) < 0.5 or float(entry_AA_AAI.get()) > 3.2) and (float(entry_AA_AAI.get()) < 3.5 or float(entry_AA_AAI.get()) > 7.0)):
+                        bad_param.config(text = "AAI Atrial Amplitude is out of range")
+                        flag = False
+
+                    if(float(entry_APW_AAI.get()) != 0.05 and (float(entry_APW_AAI.get()) < 0.1 or float(entry_APW_AAI.get()) > 1.9 )):
+                        bad_param.config(text = "AAI Atrial Pulse Width is out of range")
+                        flag = False
+
+                    if(float(entry_AS_AAI.get()) != 0.25 and float(entry_AS_AAI.get()) != 0.50 and float(entry_AS_AAI.get()) != 0.75 and (float(entry_AS_AAI.get()) < 1  or float(entry_AS_AAI.get()) > 10)):
+                        bad_param.config(text = "AAI Atrial Sensitivity is out of range")
+                        flag = False
+
+                    if(float(entry_ARP_AAI.get()) < 150 or float(entry_ARP_AAI.get()) > 500 ):
+                        bad_param.config(text = "AAI ARP is out of range")
+                        flag = False
+
+                    if(float(entry_PVARP_AAI.get()) < 150 or float(entry_PVARP_AAI.get()) > 500 ):
+                        bad_param.config(text = "AAI PVARP is out of range")
+                        flag = False
+
+                    
+
+                    if(float(entry_H_AAI.get()) != 0 and (float(entry_H_AAI.get()) < 30 or float(entry_H_AAI.get()) > 175 )):
+                        bad_param.config(text = "AAI Hysteresis is out of range")
+                        flag = False
+
+                    #VOO Limit Checker
+                    if(float(entry_LRL_VOO.get()) < 30 or float(entry_LRL_VOO.get()) > 175 ):
+                        bad_param.config(text = "VOO Lower Rate Limit is out of range")
+                        flag = False
+
+                    if(float(entry_URL_VOO.get()) < 50 or float(entry_URL_VOO.get()) > 175 ):
+                        bad_param.config(text = "VOO Upper Rate Limit is out of range")
+                        flag = False
+
+                    if(float(entry_VA_VOO.get()) != 0 and (float(entry_VA_VOO.get()) < 0.5 or float(entry_VA_VOO.get()) > 3.2) and (float(entry_VA_VOO.get()) < 3.5 or float(entry_VA_VOO.get()) > 7.0) ):
+                        bad_param.config(text = "VOO Ventricular Amplitude is out of range")
+                        flag = False
+
+                    if(float(entry_VPW_VOO.get()) != 0.05 and (float(entry_VPW_VOO.get()) < 0.1 or float(entry_VPW_VOO.get()) > 1.9 )):
+                        bad_param.config(text = "VOO Ventricular Pulse Width is out of range")
+                        flag = False
+
+
+                    #VII Limit Checker
+                    if(float(entry_LRL_VVI.get()) < 30 or float(entry_LRL_VVI.get()) > 175 ):
+                        bad_param.config(text = "VVI Lower Rate Limit is out of range")
+                        flag = False
+
+                    if(float(entry_URL_VVI.get()) < 50 or float(entry_URL_VVI.get()) > 175 ):
+                        bad_param.config(text = "VVI Upper Rate Limit is out of range")
+                        flag = False
+
+                    if(float(entry_VA_VVI.get()) != 0 and (float(entry_VA_VVI.get()) < 0.5 or float(entry_VA_VVI.get()) > 3.2) and (float(entry_VA_VVI.get()) < 3.5 or float(entry_VA_VVI.get()) > 7.0) ):
+                        bad_param.config(text = "VVI Ventricular Amplitude is out of range")
+                        flag = False
+
+                    if(float(entry_VPW_VVI.get()) != 0.05 and (float(entry_VPW_VVI.get()) < 0.1 or float(entry_VPW_VVI.get()) > 1.9 )):
+                        bad_param.config(text = "VVI Ventricular Pulse Width is out of range")
+                        flag = False
+
+                    if(float(entry_VS_VVI.get()) != 0.25 and float(entry_VS_VVI.get()) != 0.50 and float(entry_VS_VVI.get()) != 0.75 and (float(entry_VS_VVI.get()) < 1  or float(entry_VS_VVI.get()) > 10)):
+                        bad_param.config(text = "VVI Ventricular Sensitivity is out of range")
+                        flag = False
+
+                    if(float(entry_VRP_VVI.get()) < 150 or float(entry_VRP_VVI.get()) > 500 ):
+                        bad_param.config(text = "VVI VRP is out of range")
+                        flag = False
+
+                    
+                    if(float(entry_RS_VVI.get()) != 0 and float(entry_RS_VVI.get()) != 3 and float(entry_RS_VVI.get()) != 6 and float(entry_RS_VVI.get()) != 9 and float(entry_RS_VVI.get()) != 12 and float(entry_RS_VVI.get()) != 15 and float(entry_RS_VVI.get()) != 18 and float(entry_RS_VVI.get()) != 21 and float(entry_RS_VVI.get()) != 25):
+                        bad_param.config(text = "VVI Rate Smoothing is out of range")
+                        flag = False
+
+                    if(float(entry_H_VVI.get()) != 0 and (float(entry_H_VVI.get()) < 30 or float(entry_H_VVI.get()) > 175 )):
+                        bad_param.config(text = "VVI Hysteresis is out of range")
+                        flag = False
+
                     # Update the 'parameters' field with the parameter values from the app.
-                    user['parameters'] = {
-                        # AOO
-                        "AAO_LRL": float(entry_LRL_AAO.get()),
-                        "AAO_URL": float(entry_URL_AAO.get()),
-                        "AAO_AA": float(entry_AA_AAO.get()),
-                        "AAO_APW": float(entry_APW_AAO.get()),
+                    if flag:
+                        user['parameters'] = {
+                            # AOO
+                            "AAO_LRL": float(entry_LRL_AAO.get()),
+                            "AAO_URL": float(entry_URL_AAO.get()),
+                            "AAO_AA": float(entry_AA_AAO.get()),
+                            "AAO_APW": float(entry_APW_AAO.get()),
 
-                        "AAI_LRL": float(entry_LRL_AAI.get()),
-                        "AAI_URL": float(entry_URL_AAI.get()),
-                        "AAI_AA": float(entry_AA_AAI.get()),
-                        "AAI_APW": float(entry_APW_AAI.get()),
-                        "AAI_AS": float(entry_AS_AAI.get()),
-                        "AAI_ARP": float(entry_ARP_AAI.get()),
-                        "AAI_PVARP": float(entry_PVARP_AAI.get()),
-                        "AAI_RS": float(entry_RS_AAI.get()),
-                        "AAI_H": float(entry_H_AAI.get()),
+                            "AAI_LRL": float(entry_LRL_AAI.get()),
+                            "AAI_URL": float(entry_URL_AAI.get()),
+                            "AAI_AA": float(entry_AA_AAI.get()),
+                            "AAI_APW": float(entry_APW_AAI.get()),
+                            "AAI_AS": float(entry_AS_AAI.get()),
+                            "AAI_ARP": float(entry_ARP_AAI.get()),
+                            "AAI_PVARP": float(entry_PVARP_AAI.get()),
+                            "AAI_RS": float(entry_RS_AAI.get()),
+                            "AAI_H": float(entry_H_AAI.get()),
 
-                        # VOO
-                        "VOO_LRL": float(entry_LRL_VOO.get()),
-                        "VOO_URL": float(entry_URL_VOO.get()),
-                        "VOO_VA": float(entry_VA_VOO.get()),
-                        "VOO_VPW": float(entry_VPW_VOO.get()),
+                            # VOO
+                            "VOO_LRL": float(entry_LRL_VOO.get()),
+                            "VOO_URL": float(entry_URL_VOO.get()),
+                            "VOO_VA": float(entry_VA_VOO.get()),
+                            "VOO_VPW": float(entry_VPW_VOO.get()),
 
-                        # VVI
-                        "VVI_LRL": float(entry_LRL_VVI.get()),
-                        "VVI_URL": float(entry_URL_VVI.get()),
-                        "VVI_VA": float(entry_VA_VVI.get()),
-                        "VVI_VPW": float(entry_VPW_VVI.get()),
-                        "VVI_VS": float(entry_VS_VVI.get()),
-                        "VVI_VRP": float(entry_VRP_VVI.get()),
-                        "VVI_H": float(entry_H_VVI.get()),
-                        "VVI_RS": float(entry_RS_VVI.get())
-                    }
+                            # VVI
+                            "VVI_LRL": float(entry_LRL_VVI.get()),
+                            "VVI_URL": float(entry_URL_VVI.get()),
+                            "VVI_VA": float(entry_VA_VVI.get()),
+                            "VVI_VPW": float(entry_VPW_VVI.get()),
+                            "VVI_VS": float(entry_VS_VVI.get()),
+                            "VVI_VRP": float(entry_VRP_VVI.get()),
+                            "VVI_H": float(entry_H_VVI.get()),
+                            "VVI_RS": float(entry_RS_VVI.get())
+                        }
 
 
                     break  # Stop searching once the user is found.
