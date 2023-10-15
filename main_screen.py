@@ -436,6 +436,7 @@ class MainScreen:
 
                     # Update the 'parameters' field with the parameter values from the app.
                     if flag:
+                        bad_param.config(text = "Success") # update status
                         user['parameters'] = {
                             # AOO
                             "AAO_LRL": float(entry_LRL_AAO.get()),
