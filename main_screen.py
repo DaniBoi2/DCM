@@ -9,11 +9,22 @@ class MainScreen:
         self.x_offset = x_offset
         self.y_offset = y_offset
         self.welcome = welcome
+        self.connection_flag = False
 
     def main_screen(self,user_name): #Main screen pops up, user_name as input so it can display "Logged in as [user_name]" 
         def logout(): 
             main_window.withdraw()  #At logout, hide main screen window and show welcome screen again
             self.welcome.deiconify()
+
+        def connection():
+            if (self.connection_flag == False):
+                self.connection_flag = True
+                button_connect.config(text="Disconnect")
+                label_connection.config(text="Currently Connected")
+            else:
+                self.connection_flag = False
+                button_connect.config(text="Connect")
+                label_connection.config(text="Currently Disconnected")
 
         with open(self.filename, 'r') as file:
             users = json.load(file)
@@ -34,6 +45,10 @@ class MainScreen:
         label_top.grid(row=0, column=1, columnspan=2, sticky="n", pady=(0,10))  # Putting it at top
         button_logout = tk.Button(main_window, text="Logout", command=logout)
         button_logout.grid(row=0, column=5, sticky="n")
+        button_connect = tk.Button(main_window, text="Connect", command=connection)
+        button_connect.grid(row=3, column=5, sticky="s")
+        label_connection = tk.Label(main_window, text="Currently Disconnected", wraplength=75)
+        label_connection.grid(row=4, column=5, sticky="n")
         label_state = tk.Label(main_window, text="State")  #Used to show the current state (AOO,VOO...etc)
         label_state.grid(row=2, column=0, sticky="nw")
         bad_param = tk.Label(main_window, text = "", wraplength=150)  #Used to show error msgs
@@ -150,22 +165,20 @@ class MainScreen:
         def AOO_pressed():
             label_state.config(text="State:  AOO")
             bad_param.config(text = " ")
-            # grid_remove hides the widgets of states, but keeps their values
+            
             entry_LRL_VOO.grid_remove()
             entry_URL_VOO.grid_remove()
             entry_VA_VOO.grid_remove()
             entry_VPW_VOO.grid_remove()
-            
             entry_LRL_AAI.grid_remove()
             entry_URL_AAI.grid_remove()
             entry_AA_AAI.grid_remove()
             entry_APW_AAI.grid_remove()
-            entry_AS_AAI.grid_remove()
+            entry_AS_AAI.grid_remove()                 # grid_remove hides the widgets of states, but keeps their values
             entry_ARP_AAI.grid_remove()
             entry_PVARP_AAI.grid_remove()
             entry_H_AAI.grid_remove()
             entry_RS_AAI.grid_remove()
-
             entry_LRL_VVI.grid_remove()
             entry_URL_VVI.grid_remove()
             entry_VA_VVI.grid_remove()
@@ -174,7 +187,6 @@ class MainScreen:
             entry_VRP_VVI.grid_remove()
             entry_H_VVI.grid_remove()
             entry_RS_VVI.grid_remove()
-
             entry_LRL_AOO.grid()
             entry_URL_AOO.grid()
             entry_AA_AOO.grid()
@@ -193,12 +205,10 @@ class MainScreen:
             entry_PVARP_AAI.grid_remove()
             entry_H_AAI.grid_remove()
             entry_RS_AAI.grid_remove()
-
-            entry_LRL_AOO.grid_remove()
+            entry_LRL_AOO.grid_remove()     # grid_remove hides the widgets of states, but keeps their values
             entry_URL_AOO.grid_remove()
             entry_AA_AOO.grid_remove()
             entry_APW_AOO.grid_remove()
-
             entry_LRL_VVI.grid_remove()
             entry_URL_VVI.grid_remove()
             entry_VA_VVI.grid_remove()
@@ -207,7 +217,6 @@ class MainScreen:
             entry_VRP_VVI.grid_remove()
             entry_H_VVI.grid_remove()
             entry_RS_VVI.grid_remove()
-
             entry_LRL_VOO.grid()
             entry_URL_VOO.grid()
             entry_VA_VOO.grid()
@@ -221,13 +230,11 @@ class MainScreen:
             entry_URL_AOO.grid_remove()
             entry_AA_AOO.grid_remove()
             entry_APW_AOO.grid_remove()
-
             entry_LRL_VOO.grid_remove()
             entry_URL_VOO.grid_remove()
             entry_VA_VOO.grid_remove()
             entry_VPW_VOO.grid_remove()
-
-            entry_LRL_VVI.grid_remove()
+            entry_LRL_VVI.grid_remove()     # grid_remove hides the widgets of states, but keeps their values
             entry_URL_VVI.grid_remove()
             entry_VA_VVI.grid_remove()
             entry_VPW_VVI.grid_remove()
@@ -235,7 +242,6 @@ class MainScreen:
             entry_VRP_VVI.grid_remove()
             entry_H_VVI.grid_remove()
             entry_RS_VVI.grid_remove()
-
             entry_LRL_AAI.grid()
             entry_URL_AAI.grid()
             entry_AA_AAI.grid()
@@ -254,12 +260,10 @@ class MainScreen:
             entry_URL_AOO.grid_remove()
             entry_AA_AOO.grid_remove()
             entry_APW_AOO.grid_remove()
-
             entry_LRL_VOO.grid_remove()
-            entry_URL_VOO.grid_remove()
+            entry_URL_VOO.grid_remove()               # grid_remove hides the widgets of states, but keeps their values
             entry_VA_VOO.grid_remove()
             entry_VPW_VOO.grid_remove()
-
             entry_LRL_AAI.grid_remove()
             entry_URL_AAI.grid_remove()
             entry_AA_AAI.grid_remove()
@@ -269,7 +273,6 @@ class MainScreen:
             entry_PVARP_AAI.grid_remove()
             entry_H_AAI.grid_remove()
             entry_RS_AAI.grid_remove()
-
             entry_LRL_VVI.grid()
             entry_URL_VVI.grid()
             entry_VA_VVI.grid()
@@ -292,7 +295,7 @@ class MainScreen:
             with open(self.filename, 'r') as file: users = json.load(file)  # Load the existing user data from the JSON file.
             for user in users:   # Find the user with the matching username
                 if user['name'] == user_name:
-                    flag = True
+                    flag = True  #Default value meaning that data should be saved
                     bad_param.config(text = " ")
 
                     if (label_state.cget("text") == "State:  AOO"):  #Get current state
@@ -451,7 +454,7 @@ class MainScreen:
         button_VVI.grid(row=2, column=3, sticky="n", padx=65)
 
         button_save_state = tk.Button(main_window, text = "Save State", command=lambda : save_state(user_name))
-        button_save_state.grid(row = 5, column = 5)
+        button_save_state.grid(row = 7, column = 5, sticky="s")
 
         #Displaying programmable parameters labels in left column
         label_lower_rate_limit = tk.Label(main_window, text="Lower Rate Limit (ppm) (30-175)")
