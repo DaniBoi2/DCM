@@ -21,7 +21,7 @@ class LoginWindow:
         with open(self.filename, "r") as file: users = json.load(file)  #Loading contents of json file so they can be read 
         def login():
             if (entry_username.get() == self.admin_u and entry_password.get() == self.admin_p):
-                if self.register_window_open: self.registeration_window.withdraw()  #Hidentry_usernamee register screen if its deemed open
+                if self.register_window_open: self.register_window.withdraw()  #Hidentry_usernamee register screen if its deemed open
                 login_window.withdraw()
                 self.admin_screen()
             elif (len(users) == 0):  #Displays this message if there are no saved users
@@ -31,7 +31,7 @@ class LoginWindow:
                     if(entry_username.get() == user.get("username") and entry_password.get() == user.get("password")):
                         entry_username.delete(0, END)
                         entry_password.delete(0, END)   #Make entry widgets empty
-                        if self.register_window_open: self.registeration_window.withdraw()  #Hide register screen if its deemed open
+                        if self.register_window_open: self.register_window.withdraw()  #Hide register screen if its deemed open
                         self.welcome.withdraw()  #Hide welcome 
                         login_window.withdraw() #Hide login screen
                         self.main_screen(user.get("name"))  #Go to main screen with user full name so it can be displayed in corner
