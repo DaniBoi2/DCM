@@ -11,7 +11,7 @@ class LoginWindow:
         self.filename = filename
         self.welcome = welcome
         self.registeration_window = registeration_window
-        self.register_window_open = register_window_open
+        self.register_window_open = register_window_open  #Flag from register window
         self.on_register_window_close = on_register_window_close
         self.x_offset = x_offset
         self.y_offset = y_offset

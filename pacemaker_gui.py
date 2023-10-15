@@ -6,7 +6,7 @@ from login_window import LoginWindow
 class Pacemaker_GUI():
     def __init__(self): #Constructor 
         self.max_users_allowed = 10
-        self.filename = r"data_files\Users.json"
+        self.filename = r"data_files\Users.json"  #Directory of the json file containing all user data
         
         self.welcome = tk.Tk()
         self.width_screen = self.welcome.winfo_screenwidth() # width of the user screen
@@ -36,4 +36,4 @@ class Pacemaker_GUI():
         self.button_exit.pack(side="left", padx=10)
   
     def run(self):
-        self.welcome.mainloop()
+        self.welcome.mainloop()  #Keeps program running
