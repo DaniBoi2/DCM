@@ -1,18 +1,13 @@
 import tkinter as tk
-
 from registeration_window import RegisterationWindow
 from main_screen import MainScreen
 from login_window import LoginWindow
 
 class Pacemaker_GUI():
-    def __init__(self): #Constructor and welcome screen
-
-        
+    def __init__(self): #Constructor 
         self.max_users_allowed = 10
         self.filename = r"data_files\Users.json"
-        self.backup_file = r"data_files\backup.txt"
         
-
         self.welcome = tk.Tk()
         self.width_screen = self.welcome.winfo_screenwidth() # width of the user screen
         self.height_screen = self.welcome.winfo_screenheight() # height of the user screen
@@ -40,6 +35,5 @@ class Pacemaker_GUI():
         self.button_exit = tk.Button(self.welcome, text="Exit", font=("Helvetica", 12), command=exit)  #Used to properly close the program
         self.button_exit.pack(side="left", padx=10)
   
-
     def run(self):
         self.welcome.mainloop()

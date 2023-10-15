@@ -7,6 +7,7 @@ class LoginWindow:
     def __init__(self, filename, welcome, registeration_window, register_window_open, on_register_window_close, x_offset, y_offset, main_screen):
         self.admin_u = "admin" 
         self.admin_p = "dsh"   #admin credentials
+        self.backup_file = r"data_files\backup.txt"  #Directory of backup file
         self.filename = filename
         self.welcome = welcome
         self.registeration_window = registeration_window
@@ -66,8 +67,8 @@ class LoginWindow:
     def admin_screen(self): #Admin window pops up
         def delete_user_data():  #Reads user data, saves it into txt file, and then opens json file in write mode to delete everything
             with open(self.filename, "r") as user_file: user_items = json.load(user_file)  #Open in read mode and load json file and read contents
-            with open(self.backup_file, "a") as backup_file:  #Save contents to backup txt file, appends to everything else
-                for user in user_items: backup_file.write(json.dumps(user) + "\n")  # Backup every user data by writing it to txt file
+            with open(self.backup_file, "a") as backup_txt:  #Save contents to backup txt file, appends to everything else
+                for user in user_items: backup_txt.write(json.dumps(user) + "\n")  # Backup every user data by writing it to txt file
             with open(self.filename, "w") as user_file: user_file.write("[]")  #Open in write mode to delete everything, empty json array so it can be appended through registration
             label_bottom.config(text="All data has been deleted!")  
             button_delete.config(state="disabled")      
