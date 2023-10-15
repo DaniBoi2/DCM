@@ -13,10 +13,13 @@ class RegisterationWindow:
         self.register_window_open = False
 
     def register_screen(self): #Register window pops up
-        with open(self.filename, "r") as user_file: user_items = json.load(user_file)  # Open in read mode, load json file and read contents
-        num_dicts = sum(isinstance(item, dict) for item in user_items)   # Count the number of dictionaries in the json file
+        
        
         def register():
+
+            with open(self.filename, "r") as user_file: user_items = json.load(user_file)  # Open in read mode, load json file and read contents
+            num_dicts = sum(isinstance(item, dict) for item in user_items)   # Count the number of dictionaries in the json file
+
             if ((entry_username.get() == "") or (entry_password.get() == "") or (entry_name.get() == "") or (entry_email.get() == "")):
                 label_bottom.config(text="All fields must contain content, please try again")   #If all fields are not filled
             elif (not entry_name.get().replace(" ", "").isalpha()):  #Get rid of spaces as they are allowed for full names
