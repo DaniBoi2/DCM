@@ -10,6 +10,8 @@ class MainScreen:
         self.y_offset = y_offset
         self.welcome = welcome
         self.connection_flag = False
+        self.egramX = []
+        self.egramY = []
 
     def main_screen(self,user_name): #Main screen pops up, user_name as input so it can display "Logged in as [user_name]" 
         def logout(): 
