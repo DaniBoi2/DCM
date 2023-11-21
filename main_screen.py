@@ -122,11 +122,11 @@ class MainScreen:
         entry_PVARP_AAI.insert(-1, user["parameters"]["AAI_PVARP"])  #Default value of 0
         entry_PVARP_AAI.grid_remove()
         entry_H_AAI = tk.Entry(main_window, width=8, justify="center")
-        entry_H_AAI.grid(row=6, column=3, pady=10, padx=(5,0), sticky="w")
+        entry_H_AAI.grid(row=7, column=3, pady=10, padx=(5,0), sticky="w")
         entry_H_AAI.insert(-1, user["parameters"]["AAI_H"])  #Default value of 0
         entry_H_AAI.grid_remove()
         entry_RS_AAI = tk.Entry(main_window, width=8, justify="center")
-        entry_RS_AAI.grid(row=6, column=3, pady=10, padx=(5,0), sticky="w")
+        entry_RS_AAI.grid(row=8, column=3, pady=10, padx=(5,0), sticky="w")
         entry_RS_AAI.insert(-1, user["parameters"]["AAI_RS"])  #Default value of 0
         entry_RS_AAI.grid_remove()
 
@@ -164,125 +164,43 @@ class MainScreen:
         entry_RS_VVI.insert(-1, user["parameters"]["VVI_RS"])  #Default value of 0
         entry_RS_VVI.grid_remove()
     
+        def update_state_widgets(state_label_text, *widgets_to_remove):
+            label_state.config(text=f"State: {state_label_text}")
+            bad_param.config(text=" ")
+
+            for widget in widgets_to_remove:
+                widget.grid_remove()
+
+        def update_state_entries(entries_to_show):
+            for entry in entries_to_show:
+                entry.grid()
+
+        widgets = [entry_LRL_AOO, entry_URL_AOO, entry_AA_AOO, entry_APW_AOO, 
+        entry_LRL_VOO, entry_URL_VOO, entry_VA_VOO, entry_VPW_VOO, 
+        entry_LRL_AAI, entry_URL_AAI, entry_AA_AAI, entry_APW_AAI,
+        entry_AS_AAI, entry_ARP_AAI, entry_PVARP_AAI, entry_H_AAI,
+        entry_RS_AAI, entry_LRL_VVI, entry_URL_VVI, entry_VA_VVI, entry_VPW_VVI,
+                                entry_VS_VVI, entry_VRP_VVI, entry_H_VVI, entry_RS_VVI]
+
         def AOO_pressed():
-            label_state.config(text="State:  AOO")
-            bad_param.config(text = " ")
-            
-            entry_LRL_VOO.grid_remove()
-            entry_URL_VOO.grid_remove()
-            entry_VA_VOO.grid_remove()
-            entry_VPW_VOO.grid_remove()
-            entry_LRL_AAI.grid_remove()
-            entry_URL_AAI.grid_remove()
-            entry_AA_AAI.grid_remove()
-            entry_APW_AAI.grid_remove()
-            entry_AS_AAI.grid_remove()                 # grid_remove hides the widgets of states, but keeps their values
-            entry_ARP_AAI.grid_remove()
-            entry_PVARP_AAI.grid_remove()
-            entry_H_AAI.grid_remove()
-            entry_RS_AAI.grid_remove()
-            entry_LRL_VVI.grid_remove()
-            entry_URL_VVI.grid_remove()
-            entry_VA_VVI.grid_remove()
-            entry_VPW_VVI.grid_remove()
-            entry_VS_VVI.grid_remove()
-            entry_VRP_VVI.grid_remove()
-            entry_H_VVI.grid_remove()
-            entry_RS_VVI.grid_remove()
-            entry_LRL_AOO.grid()
-            entry_URL_AOO.grid()
-            entry_AA_AOO.grid()
-            entry_APW_AOO.grid()
+            update_state_widgets("AOO", *widgets)
+            update_state_entries([entry_LRL_AOO, entry_URL_AOO, entry_AA_AOO, entry_APW_AOO])
 
         def VOO_pressed():
-            label_state.config(text="State:  VOO")
-            bad_param.config(text = " ")
-
-            entry_LRL_AAI.grid_remove()
-            entry_URL_AAI.grid_remove()
-            entry_AA_AAI.grid_remove()
-            entry_APW_AAI.grid_remove()
-            entry_AS_AAI.grid_remove()
-            entry_ARP_AAI.grid_remove()
-            entry_PVARP_AAI.grid_remove()
-            entry_H_AAI.grid_remove()
-            entry_RS_AAI.grid_remove()
-            entry_LRL_AOO.grid_remove()     # grid_remove hides the widgets of states, but keeps their values
-            entry_URL_AOO.grid_remove()
-            entry_AA_AOO.grid_remove()
-            entry_APW_AOO.grid_remove()
-            entry_LRL_VVI.grid_remove()
-            entry_URL_VVI.grid_remove()
-            entry_VA_VVI.grid_remove()
-            entry_VPW_VVI.grid_remove()
-            entry_VS_VVI.grid_remove()
-            entry_VRP_VVI.grid_remove()
-            entry_H_VVI.grid_remove()
-            entry_RS_VVI.grid_remove()
-            entry_LRL_VOO.grid()
-            entry_URL_VOO.grid()
-            entry_VA_VOO.grid()
-            entry_VPW_VOO.grid()
+            update_state_widgets("VOO", *widgets)
+            update_state_entries([entry_LRL_VOO, entry_URL_VOO, entry_VA_VOO, entry_VPW_VOO])
 
         def AAI_pressed():
-            label_state.config(text="State:  AAI")
-            bad_param.config(text = " ")
+            update_state_widgets("AAI", *widgets)
+            update_state_entries([entry_LRL_AAI, entry_URL_AAI, entry_AA_AAI, entry_APW_AAI,
+                                entry_AS_AAI, entry_ARP_AAI, entry_PVARP_AAI, entry_H_AAI,
+                                entry_RS_AAI])
 
-            entry_LRL_AOO.grid_remove()
-            entry_URL_AOO.grid_remove()
-            entry_AA_AOO.grid_remove()
-            entry_APW_AOO.grid_remove()
-            entry_LRL_VOO.grid_remove()
-            entry_URL_VOO.grid_remove()
-            entry_VA_VOO.grid_remove()
-            entry_VPW_VOO.grid_remove()
-            entry_LRL_VVI.grid_remove()     # grid_remove hides the widgets of states, but keeps their values
-            entry_URL_VVI.grid_remove()
-            entry_VA_VVI.grid_remove()
-            entry_VPW_VVI.grid_remove()
-            entry_VS_VVI.grid_remove()
-            entry_VRP_VVI.grid_remove()
-            entry_H_VVI.grid_remove()
-            entry_RS_VVI.grid_remove()
-            entry_LRL_AAI.grid()
-            entry_URL_AAI.grid()
-            entry_AA_AAI.grid()
-            entry_APW_AAI.grid()
-            entry_AS_AAI.grid()
-            entry_ARP_AAI.grid()
-            entry_PVARP_AAI.grid()
-            entry_H_AAI.grid()
-            entry_RS_AAI.grid()
-            
         def VVI_pressed():
-            label_state.config(text="State:  VVI")
-            bad_param.config(text = " ")
+            update_state_widgets("VVI", *widgets)
+            update_state_entries([entry_LRL_VVI, entry_URL_VVI, entry_VA_VVI, entry_VPW_VVI,
+                                entry_VS_VVI, entry_VRP_VVI, entry_H_VVI, entry_RS_VVI])
 
-            entry_LRL_AOO.grid_remove()
-            entry_URL_AOO.grid_remove()
-            entry_AA_AOO.grid_remove()
-            entry_APW_AOO.grid_remove()
-            entry_LRL_VOO.grid_remove()
-            entry_URL_VOO.grid_remove()               # grid_remove hides the widgets of states, but keeps their values
-            entry_VA_VOO.grid_remove()
-            entry_VPW_VOO.grid_remove()
-            entry_LRL_AAI.grid_remove()
-            entry_URL_AAI.grid_remove()
-            entry_AA_AAI.grid_remove()
-            entry_APW_AAI.grid_remove()
-            entry_AS_AAI.grid_remove()
-            entry_ARP_AAI.grid_remove()
-            entry_PVARP_AAI.grid_remove()
-            entry_H_AAI.grid_remove()
-            entry_RS_AAI.grid_remove()
-            entry_LRL_VVI.grid()
-            entry_URL_VVI.grid()
-            entry_VA_VVI.grid()
-            entry_VPW_VVI.grid()
-            entry_VS_VVI.grid()
-            entry_VRP_VVI.grid()
-            entry_H_VVI.grid()
-            entry_RS_VVI.grid()
 
         def save_state(user_name): 
             def valid_number(number_input):   #Function created to check valid integer numbers and float number inputs
@@ -299,8 +217,11 @@ class MainScreen:
                 if user['name'] == user_name:
                     flag = True  #Default value meaning that data should be saved
                     bad_param.config(text = " ")
-
-                    if (label_state.cget("text") == "State:  AOO"):  #Get current state
+                    print("TEST")
+                    print(label_state.cget("text")  == "State:  AOO")
+                    print(label_state.cget("text"))
+                    print("State:  AOO")
+                    if (label_state.cget("text") == "State: AOO"):  #Get current state
                         if (valid_number(entry_LRL_AOO.get()) and valid_number(entry_URL_AOO.get()) and valid_number(entry_AA_AOO.get()) and valid_number(entry_APW_AOO.get())):
                             #AOO Limit checker
                             if(float(entry_LRL_AOO.get()) < 30 or float(entry_LRL_AOO.get()) > 175 ):
@@ -319,7 +240,7 @@ class MainScreen:
                             bad_param.config(text = "Invalid Input")
                             flag = False
 
-                    elif (label_state.cget("text") == "State:  AAI"):
+                    elif (label_state.cget("text") == "State: AAI"):
                         if (valid_number(entry_LRL_AAI.get()) and valid_number(entry_URL_AAI.get()) and valid_number(entry_AA_AAI.get()) and valid_number(entry_APW_AAI.get()) and
                             valid_number(entry_AS_AAI.get()) and valid_number(entry_ARP_AAI.get()) and valid_number(entry_PVARP_AAI.get()) and valid_number(entry_H_AAI.get())):
                             #AAI Limit Checker
@@ -351,7 +272,7 @@ class MainScreen:
                             bad_param.config(text = "Invalid Input")
                             flag = False
 
-                    elif (label_state.cget("text") == "State:  VOO"):  #Get current state
+                    elif (label_state.cget("text") == "State: VOO"):  #Get current state
                         if (valid_number(entry_LRL_VOO.get()) and valid_number(entry_URL_VOO.get()) and valid_number(entry_VA_VOO.get()) and valid_number(entry_VPW_VOO.get())):
                             #VOO Limit Checker
                             if(float(entry_LRL_VOO.get()) < 30 or float(entry_LRL_VOO.get()) > 175 ):
@@ -373,7 +294,7 @@ class MainScreen:
                             bad_param.config(text = "Invalid Input")
                             flag = False
 
-                    elif (label_state.cget("text") == "State:  VVI"):
+                    elif (label_state.cget("text") == "State: VVI"):
                         if (valid_number(entry_LRL_VVI.get()) and valid_number(entry_URL_VVI.get()) and valid_number(entry_VA_VVI.get()) and valid_number(entry_VPW_VVI.get()) and
                             valid_number(entry_VS_VVI.get()) and valid_number(entry_VRP_VVI.get()) and valid_number(entry_RS_VVI.get()) and valid_number(entry_H_VVI.get())):
                             #VII Limit Checker
@@ -405,17 +326,19 @@ class MainScreen:
                                 bad_param.config(text = "Invalid Input")
                                 flag = False
                     else:
+                        print("check")
                         flag = False  #If none of the states, set to false so nothing gets saved
 
                     # Update the 'parameters' field with the parameter values, only for the actual state (user could have input invalid values for other states' values)
+                    print(flag)
                     if flag:
                         bad_param.config(text = "Success!")
-                        if (label_state.cget("text") == "State:  AOO"):
+                        if (label_state.cget("text") == "State: AOO"):
                             user['parameters']['AOO_LRL'] = float(entry_LRL_AOO.get())
                             user['parameters']['AOO_URL'] = float(entry_URL_AOO.get())
                             user['parameters']['AOO_AA'] = float(entry_AA_AOO.get())
                             user['parameters']['AOO_APW'] = float(entry_APW_AOO.get())                  
-                        elif (label_state.cget("text") == "State:  AAI"):
+                        elif (label_state.cget("text") == "State: AAI"):
                             user['parameters']['AAI_LRL'] = float(entry_LRL_AAI.get())
                             user['parameters']['AAI_URL'] = float(entry_URL_AAI.get())
                             user['parameters']['AAI_AA'] = float(entry_AA_AAI.get())
@@ -425,12 +348,12 @@ class MainScreen:
                             user['parameters']['AAI_PVARP'] = float(entry_PVARP_AAI.get())
                             user['parameters']['AAI_RS'] = float(entry_RS_AAI.get())
                             user['parameters']['AAI_H'] = float(entry_H_AAI.get())
-                        elif (label_state.cget("text") == "State:  VOO"):
+                        elif (label_state.cget("text") == "State: VOO"):
                             user['parameters']['VOO_LRL'] = float(entry_LRL_VOO.get())
                             user['parameters']['VOO_URL'] = float(entry_URL_VOO.get())
                             user['parameters']['VOO_VA'] = float(entry_VA_VOO.get())
                             user['parameters']['VOO_VPW'] = float(entry_VPW_VOO.get())
-                        elif (label_state.cget("text") == "State:  VVI"):                         
+                        elif (label_state.cget("text") == "State: VVI"):                         
                             user['parameters']['VVI_LRL'] = float(entry_LRL_VVI.get())
                             user['parameters']['VVI_URL'] = float(entry_URL_VVI.get())
                             user['parameters']['VVI_VA'] = float(entry_VA_VVI.get())
@@ -487,3 +410,6 @@ class MainScreen:
         label_hysteresis.grid(row=7, column=2, pady=10, padx=(20,0), sticky="w")
         label_rate_smoothing = tk.Label(main_window, text="Rate Smoothing (%) (Off, 3, 6, 9, 12, 15, 18, 21, 25)")
         label_rate_smoothing.grid(row=8, column=2, pady=10, padx=(20,0), sticky="w")
+
+
+
