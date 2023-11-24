@@ -199,7 +199,7 @@ class MainScreen:
         entry_AT_AOOR.grid_remove()
 
         entry_RT_AOOR = tk.Entry(main_window, width=8, justify="center")
-        entry_RT_AOOR.grid(row=12, column=3, pady=10, padx=(5,0), sticky="w")
+        entry_RT_AOOR.grid(row=12, column=1, pady=10, padx=(5,0), sticky="w")
         entry_RT_AOOR.insert(-1, user["parameters"]["AOOR_RT"])  #Default value of 0
         entry_RT_AOOR.grid_remove()
 
@@ -209,7 +209,7 @@ class MainScreen:
         entry_RF_AOOR.grid_remove()
 
         entry_RTI_AOOR = tk.Entry(main_window, width=8, justify="center")
-        entry_RTI_AOOR.grid(row=12, column=1, pady=10, padx=(5,0), sticky="w")
+        entry_RTI_AOOR.grid(row=12, column=3, pady=10, padx=(5,0), sticky="w")
         entry_RTI_AOOR.insert(-1, user["parameters"]["AOOR_RTI"])  #Default value of 0
         entry_RTI_AOOR.grid_remove()
 
@@ -262,7 +262,7 @@ class MainScreen:
         entry_AT_AAIR.grid_remove()
 
         entry_RT_AAIR = tk.Entry(main_window, width=8, justify="center")
-        entry_RT_AAIR.grid(row=12, column=3, pady=10, padx=(5,0), sticky="w")
+        entry_RT_AAIR.grid(row=12, column=1, pady=10, padx=(5,0), sticky="w")
         entry_RT_AAIR.insert(-1, user["parameters"]["AAIR_RT"])  #Default value of 0
         entry_RT_AAIR.grid_remove()
 
@@ -272,7 +272,7 @@ class MainScreen:
         entry_RF_AAIR.grid_remove()
 
         entry_RTI_AAIR = tk.Entry(main_window, width=8, justify="center")
-        entry_RTI_AAIR.grid(row=12, column=1, pady=10, padx=(5,0), sticky="w")
+        entry_RTI_AAIR.grid(row=12, column=3, pady=10, padx=(5,0), sticky="w")
         entry_RTI_AAIR.insert(-1, user["parameters"]["AAIR_RTI"])  #Default value of 0
         entry_RTI_AAIR.grid_remove()
 
@@ -310,7 +310,7 @@ class MainScreen:
         entry_AT_VOOR.grid_remove()
 
         entry_RT_VOOR = tk.Entry(main_window, width=8, justify="center")
-        entry_RT_VOOR.grid(row=12, column=3, pady=10, padx=(5,0), sticky="w")
+        entry_RT_VOOR.grid(row=12, column=1, pady=10, padx=(5,0), sticky="w")
         entry_RT_VOOR.insert(-1, user["parameters"]["VOOR_RT"])  #Default value of 0
         entry_RT_VOOR.grid_remove()
 
@@ -320,7 +320,7 @@ class MainScreen:
         entry_RF_VOOR.grid_remove()
 
         entry_RTI_VOOR = tk.Entry(main_window, width=8, justify="center")
-        entry_RTI_VOOR.grid(row=12, column=1, pady=10, padx=(5,0), sticky="w")
+        entry_RTI_VOOR.grid(row=12, column=3, pady=10, padx=(5,0), sticky="w")
         entry_RTI_VOOR.insert(-1, user["parameters"]["VOOR_RTI"])  #Default value of 0
         entry_RTI_VOOR.grid_remove()
 
@@ -369,7 +369,7 @@ class MainScreen:
         entry_AT_VVIR.grid_remove()
 
         entry_RT_VVIR = tk.Entry(main_window, width=8, justify="center")
-        entry_RT_VVIR.grid(row=12, column=3, pady=10, padx=(5,0), sticky="w")
+        entry_RT_VVIR.grid(row=12, column=1, pady=10, padx=(5,0), sticky="w")
         entry_RT_VVIR.insert(-1, user["parameters"]["VVIR_RT"])  #Default value of 0
         entry_RT_VVIR.grid_remove()
 
@@ -379,7 +379,7 @@ class MainScreen:
         entry_RF_VVIR.grid_remove()
 
         entry_RTI_VVIR = tk.Entry(main_window, width=8, justify="center")
-        entry_RTI_VVIR.grid(row=12, column=1, pady=10, padx=(5,0), sticky="w")
+        entry_RTI_VVIR.grid(row=12, column=3, pady=10, padx=(5,0), sticky="w")
         entry_RTI_VVIR.insert(-1, user["parameters"]["VVIR_RTI"])  #Default value of 0
         entry_RTI_VVIR.grid_remove()
         
@@ -497,10 +497,7 @@ class MainScreen:
                 if user['name'] == user_name:
                     flag = True  #Default value meaning that data should be saved
                     bad_param.config(text = " ")
-                    print("TEST")
-                    print(label_state.cget("text")  == "State:  AOO")
-                    print(label_state.cget("text"))
-                    print("State:  AOO")
+                    
                     if (label_state.cget("text") == "State: AOO"):  #Get current state
                         if (valid_number(entry_LRL_AOO.get()) and valid_number(entry_URL_AOO.get()) and valid_number(entry_AA_AOO.get()) and valid_number(entry_APW_AOO.get())):
                             #AOO Limit checker
@@ -609,141 +606,141 @@ class MainScreen:
                     
                     elif (label_state.cget("text") == "State: AOOR"):
 
-                        if (valid_number(entry_LRL_AOOR.get()) and valid_number(entry_URL_AOOR.get()) and valid_number(entry_MSR_AOOR) and valid_number(entry_AA_AOOR.get()) and valid_number(entry_APW_AOOR.get()) and
+                        if (valid_number(entry_LRL_AOOR.get()) and valid_number(entry_URL_AOOR.get()) and valid_number(entry_MSR_AOOR.get()) and valid_number(entry_AA_AOOR.get()) and valid_number(entry_APW_AOOR.get()) and
                             valid_number(entry_AT_AOOR.get()) and valid_number(entry_RF_AOOR.get()) and valid_number(entry_RT_AOOR.get()) and valid_number(entry_RTI_AOOR.get())):
                             
                             
                             #VII Limit Checker
                             if(float(entry_LRL_AOOR.get()) < 30 or float(entry_LRL_AOOR.get()) > 175 ):
-                                bad_param.config(text = "VVI Lower Rate Limit is out of range")
+                                bad_param.config(text = "AOOR Lower Rate Limit is out of range")
                                 flag = False
                             if(float(entry_URL_AOOR.get()) < 50 or float(entry_URL_AOOR.get()) > 175 ):
-                                bad_param.config(text = "VVI Upper Rate Limit is out of range")
+                                bad_param.config(text = "AOOR Upper Rate Limit is out of range")
                                 flag = False
                             if(float(entry_MSR_AOOR.get()) < 50 or float(entry_MSR_AOOR.get()) > 175):
-                                bad_param.config(text = "VVI Ventricular Amplitude is out of range")
+                                bad_param.config(text = "AOOR Maximum Sensor Rate is out of range")
                                 flag = False
                             if(float(entry_AA_AOOR.get()) != 0 and (float(entry_AA_AOOR.get()) < 0.5 or float(entry_AA_AOOR.get()) > 3.2) and (float(entry_AA_AOOR.get()) < 3.5 or float(entry_AA_AOOR.get()) > 7.0)):
-                                bad_param.config(text = "VVI Ventricular Pulse Width is out of range")
+                                bad_param.config(text = "AOOR Atrial Amplitude is out of range")
                                 flag = False
                             if(float(entry_APW_AOOR.get()) != 0.05 and (float(entry_APW_AOOR.get()) < 0.1 or float(entry_APW_AOOR.get()) > 1.9 )):
-                                bad_param.config(text = "VVI Ventricular Sensitivity is out of range")
+                                bad_param.config(text = "AOOR Atrial Pulse Width is out of range")
                                 flag = False
 
                             if(float(entry_AT_AOOR.get()) < 150 or float(entry_AT_AOOR.get()) > 500 ):
-                                bad_param.config(text = "VVI VRP is out of range")
+                                bad_param.config(text = "AOOR Activity Threshold is out of range")
                                 flag = False
                             if(float(entry_RF_AOOR.get()) < 1 or float(entry_RF_AOOR.get()) > 16):
-                                bad_param.config(text = "VVI Rate Smoothing is out of range")
+                                bad_param.config(text = "AOOR Response Factor is out of range")
                                 flag = False
                             if(float(entry_RT_AOOR.get()) < 10 or float(entry_RT_AOOR.get()) > 50 ):
-                                bad_param.config(text = "VVI Hysteresis is out of range")
+                                bad_param.config(text = "AOOR Reaction Time is out of range")
                                 flag = False
                             if(float(entry_RTI_AOOR.get()) < 2 or float(entry_RTI_AOOR.get()) > 16):
-                                bad_param.config(text = "VVI Hysteresis is out of range")
+                                bad_param.config(text = "AOOR Recovery Time is out of range")
                                 flag = False
 
                     elif (label_state.cget("text") == "State: AAIR"):
-                        if (valid_number(entry_LRL_AAIR.get()) and valid_number(entry_URL_AAIR.get()) and valid_number(entry_MSR_AAIR) and valid_number(entry_AA_AAIR.get()) and valid_number(entry_APW_AAIR.get()) and
+                        if (valid_number(entry_LRL_AAIR.get()) and valid_number(entry_URL_AAIR.get()) and valid_number(entry_MSR_AAIR.get()) and valid_number(entry_AA_AAIR.get()) and valid_number(entry_APW_AAIR.get()) and
                             valid_number(entry_AS_AAIR.get()) and valid_number(entry_ARP_AAIR.get()) and valid_number(entry_PVARP_AAIR.get()) and
                             valid_number(entry_AT_AAIR.get()) and valid_number(entry_RF_AAIR.get()) and valid_number(entry_RT_AAIR.get()) and valid_number(entry_RTI_AAIR.get())):
                             #VII Limit Checker
                             if(float(entry_LRL_AAIR.get()) < 30 or float(entry_LRL_AAIR.get()) > 175 ):
-                                bad_param.config(text = "VVI Lower Rate Limit is out of range")
+                                bad_param.config(text = "AAIR Lower Rate Limit is out of range")
                                 flag = False
                             if(float(entry_URL_AAIR.get()) < 50 or float(entry_URL_AAIR.get()) > 175 ):
-                                bad_param.config(text = "VVI Upper Rate Limit is out of range")
+                                bad_param.config(text = "AAIR Upper Rate Limit is out of range")
                                 flag = False
                             if(float(entry_MSR_AAIR.get())  < 50 or float(entry_MSR_AAIR.get()) > 175):
-                                bad_param.config(text = "VVI Ventricular Amplitude is out of range")
+                                bad_param.config(text = "AAIR Maximum Sensor Rate is out of range")
                                 flag = False
                             if(float(entry_AA_AAIR.get()) != 0 and (float(entry_AA_AAIR.get()) < 0.5 or float(entry_AA_AAIR.get()) > 3.2) and (float(entry_AA_AAIR.get()) < 3.5 or float(entry_AA_AAIR.get()) > 7.0)):
-                                bad_param.config(text = "VVI Ventricular Pulse Width is out of range")
+                                bad_param.config(text = "AAIR Atrial Amplitude is out of range")
                                 flag = False
                             if(float(entry_APW_AAIR.get()) != 0.05 and (float(entry_APW_AAIR.get()) < 0.1 or float(entry_APW_AAIR.get()) > 1.9 )):
-                                bad_param.config(text = "VVI Ventricular Sensitivity is out of range")
+                                bad_param.config(text = "AAIR Atrial Pulse Width is out of range")
                                 flag = False
 
                                 
                             if(float(entry_AS_AAIR.get()) != 0.25 and float(entry_AS_AAIR.get()) != 0.50 and float(entry_AS_AAIR.get()) != 0.75 and (float(entry_AS_AAIR.get()) < 1  or float(entry_AS_AAIR.get()) > 10)):
-                                bad_param.config(text = "VVI Ventricular Amplitude is out of range")
+                                bad_param.config(text = "AAIR Atrial Sensitivity is out of range")
                                 flag = False
                             if(float(entry_ARP_AAIR.get()) < 150 and float(entry_ARP_AAIR.get()) > 500):
-                                bad_param.config(text = "VVI Ventricular Pulse Width is out of range")
+                                bad_param.config(text = "AAIR ARP is out of range")
                                 flag = False
                             if(float(entry_PVARP_AAIR.get()) < 150 and float(entry_PVARP_AAIR.get()) > 500):
-                                bad_param.config(text = "VVI Ventricular Sensitivity is out of range")
+                                bad_param.config(text = "AAIR PVARP is out of range")
                                 flag = False
 
                             if(float(entry_AT_AAIR.get()) < 150 or float(entry_AT_AAIR.get()) > 500 ):
-                                bad_param.config(text = "VVI VRP is out of range")
+                                bad_param.config(text = "AAIR Activity Threshold is out of range")
                                 flag = False
                             if(float(entry_RF_AAIR.get()) < 1 or float(entry_RF_AAIR.get()) > 16):
-                                bad_param.config(text = "VVI Rate Smoothing is out of range")
+                                bad_param.config(text = "AAIR Response Factor is out of range")
                                 flag = False
                             if(float(entry_RT_AAIR.get()) < 10 or float(entry_RT_AAIR.get()) > 50 ):
-                                bad_param.config(text = "VVI Hysteresis is out of range")
+                                bad_param.config(text = "AAIR Reaction Time is out of range")
                                 flag = False
                             if(float(entry_RTI_AAIR.get()) < 2 or float(entry_RTI_AAIR.get()) > 16):
-                                bad_param.config(text = "VVI Hysteresis is out of range")
+                                bad_param.config(text = "AAIR Recovery Time is out of range")
                                 flag = False
 
                     # VOOR
                     elif (label_state.cget("text") == "State: VOOR"):
-                        if (valid_number(entry_LRL_VOOR.get()) and valid_number(entry_URL_VOOR.get()) and valid_number(entry_MSR_VOOR) and valid_number(entry_AA_VOOR.get()) and valid_number(entry_APW_VOOR.get()) and
+                        if (valid_number(entry_LRL_VOOR.get()) and valid_number(entry_URL_VOOR.get()) and valid_number(entry_MSR_VOOR.get()) and valid_number(entry_VA_VOOR.get()) and valid_number(entry_VPW_VOOR.get()) and
                             valid_number(entry_AT_VOOR.get()) and valid_number(entry_RF_VOOR.get()) and valid_number(entry_RT_VOOR.get()) and valid_number(entry_RTI_VOOR.get())):
                             #VII Limit Checker
                             if(float(entry_LRL_VOOR.get()) < 30 or float(entry_LRL_VOOR.get()) > 175 ):
-                                bad_param.config(text = "VVI Lower Rate Limit is out of range")
+                                bad_param.config(text = "VOOR Lower Rate Limit is out of range")
                                 flag = False
                             if(float(entry_URL_VOOR.get()) < 50 or float(entry_URL_VOOR.get()) > 175 ):
-                                bad_param.config(text = "VVI Upper Rate Limit is out of range")
+                                bad_param.config(text = "VOOR Upper Rate Limit is out of range")
                                 flag = False
                             if(float(entry_MSR_VOOR.get())  < 50 or float(entry_MSR_VOOR.get()) > 175):
-                                bad_param.config(text = "VVI Ventricular Amplitude is out of range")
+                                bad_param.config(text = "VOOR Maximum Sensor Rate is out of range")
                                 flag = False
 
                             if(float(entry_VA_VOOR.get()) != 0 and (float(entry_VA_VOOR.get()) < 0.5 or float(entry_VA_VOOR.get()) > 3.2) and (float(entry_VA_VOOR.get()) < 3.5 or float(entry_VA_VOOR.get()) > 7.0)):
-                                bad_param.config(text = "VVI Ventricular Pulse Width is out of range")
+                                bad_param.config(text = "VOOR Ventricular Amplitude is out of range")
                                 flag = False
                             if(float(entry_VPW_VOOR.get()) != 0.05 and (float(entry_VPW_VOOR.get()) < 0.1 or float(entry_VPW_VOOR.get()) > 1.9 )):
-                                bad_param.config(text = "VVI Ventricular Sensitivity is out of range")
+                                bad_param.config(text = "VOOR Ventricular Pulse Width is out of range")
                                 flag = False
 
                             if(float(entry_AT_VOOR.get()) < 150 or float(entry_AT_VOOR.get()) > 500 ):
-                                bad_param.config(text = "VVI VRP is out of range")
+                                bad_param.config(text = "VOOR Activity Threshold is out of range")
                                 flag = False
                             if(float(entry_RF_VOOR.get()) < 1 or float(entry_RF_VOOR.get()) > 16):
-                                bad_param.config(text = "VVI Rate Smoothing is out of range")
+                                bad_param.config(text = "VOOR Response Factor is out of range")
                                 flag = False
                             if(float(entry_RT_VOOR.get()) < 10 or float(entry_RT_VOOR.get()) > 50 ):
-                                bad_param.config(text = "VVI Hysteresis is out of range")
+                                bad_param.config(text = "VOOR Reaction Time is out of range")
                                 flag = False
                             if(float(entry_RTI_VOOR.get()) < 2 or float(entry_RTI_VOOR.get()) > 16):
-                                bad_param.config(text = "VVI Hysteresis is out of range")
+                                bad_param.config(text = "VOOR Recovery Time is out of range")
                                 flag = False
 
                     # VVIR
                     elif (label_state.cget("text") == "State: VVIR"):
-                        if (valid_number(entry_LRL_VVIR.get()) and valid_number(entry_URL_VVIR.get()) and valid_number(entry_MSR_VVIR) and valid_number(entry_AA_VVIR.get()) and valid_number(entry_APW_VVIR.get()) and
+                        if (valid_number(entry_LRL_VVIR.get()) and valid_number(entry_URL_VVIR.get()) and valid_number(entry_MSR_VVIR.get()) and valid_number(entry_VA_VVIR.get()) and valid_number(entry_VPW_VVIR.get()) and
                             valid_number(entry_VS_VVIR.get()) and valid_number(entry_VRP_VVIR.get()) and
                             valid_number(entry_AT_VVIR.get()) and valid_number(entry_RF_VVIR.get()) and valid_number(entry_RT_VVIR.get()) and valid_number(entry_RTI_VVIR.get())):
                             #VII Limit Checker
                             if(float(entry_LRL_VVIR.get()) < 30 or float(entry_LRL_VVIR.get()) > 175 ):
-                                bad_param.config(text = "VVI Lower Rate Limit is out of range")
+                                bad_param.config(text = "VVIR Lower Rate Limit is out of range")
                                 flag = False
                             if(float(entry_URL_VVIR.get()) < 50 or float(entry_URL_VVIR.get()) > 175 ):
-                                bad_param.config(text = "VVI Upper Rate Limit is out of range")
+                                bad_param.config(text = "VVIR Upper Rate Limit is out of range")
                                 flag = False
                             if(float(entry_MSR_VVIR.get())  < 50 or float(entry_MSR_VVIR.get()) > 175):
-                                bad_param.config(text = "VVI Ventricular Amplitude is out of range")
+                                bad_param.config(text = "VVIR Maximum Sensor Rate is out of range")
                                 flag = False
 
                             if(float(entry_VA_VVIR.get()) != 0 and (float(entry_VA_VVIR.get()) < 0.5 or float(entry_VA_VVIR.get()) > 3.2) and (float(entry_VA_VVIR.get()) < 3.5 or float(entry_VA_VVIR.get()) > 7.0)):
-                                bad_param.config(text = "VVI Ventricular Pulse Width is out of range")
+                                bad_param.config(text = "VVIR Ventricular Amplitude is out of range")
                                 flag = False
                             if(float(entry_VPW_VVIR.get()) != 0.05 and (float(entry_VPW_VVIR.get()) < 0.1 or float(entry_VPW_VVIR.get()) > 1.9 )):
-                                bad_param.config(text = "VVI Ventricular Sensitivity is out of range")
+                                bad_param.config(text = "VVIR Ventricular Pulse Width is out of range")
                                 flag = False
 
                             if(float(entry_VS_VVIR.get()) != 0.25 and float(entry_VS_VVIR.get()) != 0.50 and float(entry_VS_VVIR.get()) != 0.75 and (float(entry_VS_VVIR.get()) < 1  or float(entry_VS_VVIR.get()) > 10)):
@@ -754,23 +751,23 @@ class MainScreen:
                                 flag = False    
 
                             if(float(entry_AT_VVIR.get()) < 150 or float(entry_AT_VVIR.get()) > 500 ):
-                                bad_param.config(text = "VVI VRP is out of range")
+                                bad_param.config(text = "VVIR Activity Threshold is out of range")
                                 flag = False
                             if(float(entry_RF_VVIR.get()) < 1 or float(entry_RF_VVIR.get()) > 16):
-                                bad_param.config(text = "VVI Rate Smoothing is out of range")
+                                bad_param.config(text = "VVIR Response Factor is out of range")
                                 flag = False
                             if(float(entry_RT_VVIR.get()) < 10 or float(entry_RT_VVIR.get()) > 50 ):
-                                bad_param.config(text = "VVI Hysteresis is out of range")
+                                bad_param.config(text = "VVIR Reaction Time is out of range")
                                 flag = False
                             if(float(entry_RTI_VVIR.get()) < 2 or float(entry_RTI_VVIR.get()) > 16):
-                                bad_param.config(text = "VVI Hysteresis is out of range")
+                                bad_param.config(text = "VVIR Recovery Time is out of range")
                                 flag = False
 
                         else: #If all numbers are not valid like asked in above condition, then input must be invalid
                                 bad_param.config(text = "Invalid Input")
                                 flag = False
                     else:
-                        print("check")
+                        
                         flag = False  #If none of the states, set to false so nothing gets saved
 
                     # Update the 'parameters' field with the parameter values, only for the actual state (user could have input invalid values for other states' values)
