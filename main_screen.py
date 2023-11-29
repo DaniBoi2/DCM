@@ -2,6 +2,9 @@ import tkinter as tk
 from tkinter import *
 import json
 import os
+import serial
+
+from egram import Egram
 
 class MainScreen:
     def __init__(self, filename, x_offset, y_offset, welcome):
@@ -10,8 +13,34 @@ class MainScreen:
         self.y_offset = 20
         self.welcome = welcome
         self.connection_flag = False
+
         self.egramX = []
         self.egramY = []
+
+        # instantiate classes here
+        self.egram = Egram(self.filename, self.x_offset, self.y_offset)
+        
+
+    def transmit_data(self, user):
+        
+        
+        # Convert the parameters to a JSON string
+        json_data = json.dumps({"parameters": user["parameters"]})
+        print(json_data)
+
+        # Define the serial port settings
+        serial_port = "COM1"  # Change this to your specific serial port
+        baud_rate = 9600  # Change this to your specific baud rate
+
+        # Open the serial port
+        ser = serial.Serial(serial_port, baud_rate)
+
+        # Send the JSON data via UART
+        ser.write(json_data.encode())
+
+        # Close the serial port
+        ser.close()
+
 
     def main_screen(self,user_name): #Main screen pops up, user_name as input so it can display "Logged in as [user_name]" 
         def logout(): 
@@ -51,6 +80,12 @@ class MainScreen:
         button_connect.grid(row=3, column=5, sticky="s")
         label_connection = tk.Label(main_window, text="Currently Disconnected", wraplength=75)
         label_connection.grid(row=4, column=5, sticky="n")
+        button_save_state = tk.Button(main_window, text = "Save State", command=lambda : save_state(user_name))
+        button_save_state.grid(row = 7, column = 5, sticky="s")
+        button_transmit_data = tk.Button(main_window, text = "Transmit", command=lambda : self.transmit_data(user))
+        button_transmit_data.grid(row = 8, column = 5, pady=20,sticky="s")
+        button_egram_window = tk.Button(main_window, text = "egram display", command=lambda : self.egram.egram_screen())
+        button_egram_window.grid(row = 9, column = 5, pady=20,sticky="s")
         label_state = tk.Label(main_window, text="State")  #Used to show the current state (AOO,VOO...etc)
         label_state.grid(row=2, column=0, sticky="nw")
         bad_param = tk.Label(main_window, text = "", wraplength=150)  #Used to show error msgs
@@ -884,8 +919,7 @@ class MainScreen:
         button_VVIR.grid(row=3, column=3, sticky="n", padx=65, pady=(30))
         
 
-        button_save_state = tk.Button(main_window, text = "Save State", command=lambda : save_state(user_name))
-        button_save_state.grid(row = 7, column = 5, sticky="s")
+        
 
         #Displaying programmable parameters labels in left column
         label_lower_rate_limit = tk.Label(main_window, text="Lower Rate Limit (ppm) (30-175)")
