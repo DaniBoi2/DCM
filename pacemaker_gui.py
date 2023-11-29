@@ -3,6 +3,7 @@ from registeration_window import RegisterationWindow
 from main_screen import MainScreen
 from login_window import LoginWindow
 
+
 class Pacemaker_GUI():
     def __init__(self): #Constructor 
         self.max_users_allowed = 10
@@ -27,6 +28,7 @@ class Pacemaker_GUI():
         self.login_window = LoginWindow(self.filename, self.welcome, self.registeration_window, 
         self.registeration_window.register_window_open, self.registeration_window.on_register_window_close, self.x_offset, self.y_offset,
         self.main_screen.main_screen)
+        
 
         self.button_login = tk.Button(self.welcome, text="Login", font=("Helvetica", 14), command=self.login_window.login_screen)
         self.button_login.pack()
