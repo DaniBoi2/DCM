@@ -21,25 +21,7 @@ class MainScreen:
         self.egram = Egram(self.filename, self.x_offset, self.y_offset)
         
 
-    def transmit_data(self, user):
-        
-        
-        # Convert the parameters to a JSON string
-        json_data = json.dumps({"parameters": user["parameters"]})
-        print(json_data)
-
-        # Define the serial port settings
-        serial_port = "COM1"  # Change this to your specific serial port
-        baud_rate = 9600  # Change this to your specific baud rate
-
-        # Open the serial port
-        ser = serial.Serial(serial_port, baud_rate)
-
-        # Send the JSON data via UART
-        ser.write(json_data.encode())
-
-        # Close the serial port
-        ser.close()
+    
 
 
     def main_screen(self,user_name): #Main screen pops up, user_name as input so it can display "Logged in as [user_name]" 
@@ -82,7 +64,7 @@ class MainScreen:
         label_connection.grid(row=4, column=5, sticky="n")
         button_save_state = tk.Button(main_window, text = "Save State", command=lambda : save_state(user_name))
         button_save_state.grid(row = 7, column = 5, sticky="s")
-        button_transmit_data = tk.Button(main_window, text = "Transmit", command=lambda : self.transmit_data(user))
+        button_transmit_data = tk.Button(main_window, text = "Transmit", command=lambda : self.egram.transmit_data(user, label_state.cget("text").split("State: ")[1])) 
         button_transmit_data.grid(row = 8, column = 5, pady=20,sticky="s")
         button_egram_window = tk.Button(main_window, text = "egram display", command=lambda : self.egram.egram_screen())
         button_egram_window.grid(row = 9, column = 5, pady=20,sticky="s")
