@@ -5,6 +5,7 @@ import os
 import copy
 
 from struct import pack 
+import serial
 
 class Egram:
     def __init__(self, filename, x_offset, y_offset):
@@ -153,27 +154,30 @@ class Egram:
         print(state)
 
         # double d, uint16 H, 
-        output_data = pack("<HdHHdddHHddhhhhhdhhh", 16, 55, 
-        self.cur_mode["state"], 
-        self.cur_mode["AA"], 
-        self.cur_mode["APW"], 
-        self.cur_mode["ARP"], 
-        self.cur_mode["AS"], 
-        self.cur_mode["ATD"], 
-        self.cur_mode["VA"], 
-        self.cur_mode["VPW"],
-        self.cur_mode["VRP"], 
-        self.cur_mode["VS"], 
-        self.cur_mode["VTD"], 
-        self.cur_mode["LRL"], 
-        self.cur_mode["URL"], 
-        self.cur_mode["MSR"], 
-        self.cur_mode["AVD"], 
-        self.cur_mode["PVARP"], 
-        self.cur_mode["AT"], 
-        self.cur_mode["RT"], 
-        self.cur_mode["RF"], 
-        self.cur_mode["RTI"])
+        output_data = pack("<bdHdHHdddHHddhhhhhdhhh", 
+        16, 
+        55, 
+        int(self.cur_mode["state"]), 
+        int(self.cur_mode["AA"]), 
+        int(self.cur_mode["APW"]), 
+        int(self.cur_mode["ARP"]), 
+        int(self.cur_mode["AS"]), 
+        int(self.cur_mode["ATD"]), 
+        int(self.cur_mode["VA"]),
+        int(self.cur_mode["VPW"]),
+        int(self.cur_mode["VRP"]), 
+        int(self.cur_mode["VS"]),
+        int(self.cur_mode["VTD"]), 
+        int(self.cur_mode["LRL"]), 
+        int(self.cur_mode["URL"]), 
+        int(self.cur_mode["MSR"]), 
+        int(self.cur_mode["AVD"]), 
+        int(self.cur_mode["PVARP"]), 
+        int(self.cur_mode["AT"]), 
+        int(self.cur_mode["RT"]), 
+        int(self.cur_mode["RF"]), 
+        int(self.cur_mode["RTI"])
+        )
 
 
         # Open the serial port
