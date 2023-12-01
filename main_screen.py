@@ -34,6 +34,7 @@ class MainScreen:
                 self.connection_flag = True
                 button_connect.config(text="Disconnect")
                 label_connection.config(text="Currently Connected")
+                button_transmit_data.config(state=tk.NORMAL)
             else:
                 self.connection_flag = False
                 button_connect.config(text="Connect")
@@ -57,21 +58,22 @@ class MainScreen:
         label_top =tk.Label(main_window, text="Pacemaker Control Platform",font=("Helvetica", 15))
         label_top.grid(row=0, column=1, columnspan=2, sticky="n", pady=(0,10))  # Putting it at top
         button_logout = tk.Button(main_window, text="Logout", command=logout)
-        button_logout.grid(row=0, column=5, sticky="n")
+        button_logout.grid(row=0, column=5, padx=15, sticky="n")
         button_connect = tk.Button(main_window, text="Connect", command=connection)
-        button_connect.grid(row=3, column=5, sticky="s")
+        button_connect.grid(row=9, column=5, sticky="s")
         label_connection = tk.Label(main_window, text="Currently Disconnected", wraplength=75)
-        label_connection.grid(row=4, column=5, sticky="n")
+        label_connection.grid(row=10, column=5, sticky="n")
         button_save_state = tk.Button(main_window, text = "Save State", command=lambda : save_state(user_name))
         button_save_state.grid(row = 7, column = 5, sticky="s")
-        button_transmit_data = tk.Button(main_window, text = "Transmit", command=lambda : self.egram.transmit_data(user, label_state.cget("text").split("State: ")[1])) 
-        button_transmit_data.grid(row = 8, column = 5, pady=20,sticky="s")
         button_egram_window = tk.Button(main_window, text = "egram display", command=lambda : self.egram.egram_screen())
-        button_egram_window.grid(row = 9, column = 5, pady=20,sticky="s")
+        button_egram_window.grid(row = 6, column = 5, pady=20,sticky="s")
         label_state = tk.Label(main_window, text="State")  #Used to show the current state (AOO,VOO...etc)
         label_state.grid(row=2, column=0, sticky="nw")
         bad_param = tk.Label(main_window, text = "", wraplength=150)  #Used to show error msgs
-        bad_param.grid(row = 8, column = 5, sticky="n")
+        bad_param.grid(row = 8, column = 5, sticky="n", pady=5)
+        button_transmit_data = tk.Button(main_window, text = "Transmit", command=lambda : self.egram.transmit_data(user, label_state.cget("text").split("State: ")[0] if len(label_state.cget("text").split("State: ")) == 1 else label_state.cget("text").split("State: ")[1])) 
+        button_transmit_data.grid(row = 11, column = 5, pady=20,sticky="s")
+        button_transmit_data.config(state=tk.DISABLED)
 
         #Entry widgets for AOO
         entry_LRL_AOO = tk.Entry(main_window, width=8, justify="center")
@@ -527,7 +529,7 @@ class MainScreen:
                             if(float(entry_AA_AOO.get()) != 0 and (float(entry_AA_AOO.get()) < 0.5 or float(entry_AA_AOO.get()) > 3.2) and (float(entry_AA_AOO.get()) < 3.5 or float(entry_AA_AOO.get()) > 7.0)):
                                 bad_param.config(text = "AOO Atrial Amplitude is out of range")
                                 flag = False
-                            if(float(entry_APW_AOO.get()) != 0.05 and (float(entry_APW_AOO.get()) < 0.1 or float(entry_APW_AOO.get()) > 1.9 )):
+                            if(float(entry_APW_AOO.get()) < 1 and (float(entry_APW_AOO.get()) > 30)):
                                 bad_param.config(text = "AOO Atrial Pulse Width is out of range")
                                 flag = False
                         else: #If all numbers are not valid like asked in above condition, then input must be invalid
@@ -547,10 +549,10 @@ class MainScreen:
                             if(float(entry_AA_AAI.get()) != 0 and (float(entry_AA_AAI.get()) < 0.5 or float(entry_AA_AAI.get()) > 3.2) and (float(entry_AA_AAI.get()) < 3.5 or float(entry_AA_AAI.get()) > 7.0)):
                                 bad_param.config(text = "AAI Atrial Amplitude is out of range")
                                 flag = False
-                            if(float(entry_APW_AAI.get()) != 0.05 and (float(entry_APW_AAI.get()) < 0.1 or float(entry_APW_AAI.get()) > 1.9 )):
+                            if(float(entry_APW_AAI.get()) < 1 and float(entry_APW_AAI.get()) > 30 ):
                                 bad_param.config(text = "AAI Atrial Pulse Width is out of range")
                                 flag = False
-                            if(float(entry_AS_AAI.get()) != 0.25 and float(entry_AS_AAI.get()) != 0.50 and float(entry_AS_AAI.get()) != 0.75 and (float(entry_AS_AAI.get()) < 1  or float(entry_AS_AAI.get()) > 10)):
+                            if(float(entry_AS_AAI.get()) < 0 and  float(entry_AS_AAI.get()) > 5):
                                 bad_param.config(text = "AAI Atrial Sensitivity is out of range")
                                 flag = False
                             if(float(entry_ARP_AAI.get()) < 150 or float(entry_ARP_AAI.get()) > 500 ):
@@ -581,7 +583,7 @@ class MainScreen:
                                 bad_param.config(text = "VOO Ventricular Amplitude is out of range")
                                 flag = False
 
-                            if(float(entry_VPW_VOO.get()) != 0.05 and (float(entry_VPW_VOO.get()) < 0.1 or float(entry_VPW_VOO.get()) > 1.9 )):
+                            if(float(entry_VPW_VOO.get()) < 1 and float(entry_VPW_VOO.get()) > 30 ):
                                 bad_param.config(text = "VOO Ventricular Pulse Width is out of range")
                                 flag = False
                         else: #If all numbers are not valid like asked in above condition, then input must be invalid
@@ -601,10 +603,10 @@ class MainScreen:
                             if(float(entry_VA_VVI.get()) != 0 and (float(entry_VA_VVI.get()) < 0.5 or float(entry_VA_VVI.get()) > 3.2) and (float(entry_VA_VVI.get()) < 3.5 or float(entry_VA_VVI.get()) > 7.0) ):
                                 bad_param.config(text = "VVI Ventricular Amplitude is out of range")
                                 flag = False
-                            if(float(entry_VPW_VVI.get()) != 0.05 and (float(entry_VPW_VVI.get()) < 0.1 or float(entry_VPW_VVI.get()) > 1.9 )):
+                            if(float(entry_VPW_VVI.get()) < 1 and float(entry_VPW_VVI.get()) > 30):
                                 bad_param.config(text = "VVI Ventricular Pulse Width is out of range")
                                 flag = False
-                            if(float(entry_VS_VVI.get()) != 0.25 and float(entry_VS_VVI.get()) != 0.50 and float(entry_VS_VVI.get()) != 0.75 and (float(entry_VS_VVI.get()) < 1  or float(entry_VS_VVI.get()) > 10)):
+                            if(float(entry_VS_VVI.get()) < 0 and float(entry_VS_VVI.get()) > 5):
                                 bad_param.config(text = "VVI Ventricular Sensitivity is out of range")
                                 flag = False
                             if(float(entry_VRP_VVI.get()) < 150 or float(entry_VRP_VVI.get()) > 500 ):
@@ -640,11 +642,11 @@ class MainScreen:
                             if(float(entry_AA_AOOR.get()) != 0 and (float(entry_AA_AOOR.get()) < 0.5 or float(entry_AA_AOOR.get()) > 3.2) and (float(entry_AA_AOOR.get()) < 3.5 or float(entry_AA_AOOR.get()) > 7.0)):
                                 bad_param.config(text = "AOOR Atrial Amplitude is out of range")
                                 flag = False
-                            if(float(entry_APW_AOOR.get()) != 0.05 and (float(entry_APW_AOOR.get()) < 0.1 or float(entry_APW_AOOR.get()) > 1.9 )):
+                            if(float(entry_APW_AOOR.get()) < 1 and float(entry_APW_AOOR.get()) > 30 ):
                                 bad_param.config(text = "AOOR Atrial Pulse Width is out of range")
                                 flag = False
 
-                            if(float(entry_AT_AOOR.get()) < 150 or float(entry_AT_AOOR.get()) > 500 ):
+                            if(float(entry_AT_AOOR.get()) < 1 or float(entry_AT_AOOR.get()) > 7 ):
                                 bad_param.config(text = "AOOR Activity Threshold is out of range")
                                 flag = False
                             if(float(entry_RF_AOOR.get()) < 1 or float(entry_RF_AOOR.get()) > 16):
@@ -674,12 +676,12 @@ class MainScreen:
                             if(float(entry_AA_AAIR.get()) != 0 and (float(entry_AA_AAIR.get()) < 0.5 or float(entry_AA_AAIR.get()) > 3.2) and (float(entry_AA_AAIR.get()) < 3.5 or float(entry_AA_AAIR.get()) > 7.0)):
                                 bad_param.config(text = "AAIR Atrial Amplitude is out of range")
                                 flag = False
-                            if(float(entry_APW_AAIR.get()) != 0.05 and (float(entry_APW_AAIR.get()) < 0.1 or float(entry_APW_AAIR.get()) > 1.9 )):
+                            if(float(entry_APW_AAIR.get()) < 1 and float(entry_APW_AAIR.get()) > 30):
                                 bad_param.config(text = "AAIR Atrial Pulse Width is out of range")
                                 flag = False
 
                                 
-                            if(float(entry_AS_AAIR.get()) != 0.25 and float(entry_AS_AAIR.get()) != 0.50 and float(entry_AS_AAIR.get()) != 0.75 and (float(entry_AS_AAIR.get()) < 1  or float(entry_AS_AAIR.get()) > 10)):
+                            if(float(entry_AS_AAIR.get()) < 0 and float(entry_AS_AAIR.get()) > 5):
                                 bad_param.config(text = "AAIR Atrial Sensitivity is out of range")
                                 flag = False
                             if(float(entry_ARP_AAIR.get()) < 150 and float(entry_ARP_AAIR.get()) > 500):
@@ -689,7 +691,7 @@ class MainScreen:
                                 bad_param.config(text = "AAIR PVARP is out of range")
                                 flag = False
 
-                            if(float(entry_AT_AAIR.get()) < 150 or float(entry_AT_AAIR.get()) > 500 ):
+                            if(float(entry_AT_AAIR.get()) < 1 or float(entry_AT_AAIR.get()) > 7 ):
                                 bad_param.config(text = "AAIR Activity Threshold is out of range")
                                 flag = False
                             if(float(entry_RF_AAIR.get()) < 1 or float(entry_RF_AAIR.get()) > 16):
@@ -720,11 +722,11 @@ class MainScreen:
                             if(float(entry_VA_VOOR.get()) != 0 and (float(entry_VA_VOOR.get()) < 0.5 or float(entry_VA_VOOR.get()) > 3.2) and (float(entry_VA_VOOR.get()) < 3.5 or float(entry_VA_VOOR.get()) > 7.0)):
                                 bad_param.config(text = "VOOR Ventricular Amplitude is out of range")
                                 flag = False
-                            if(float(entry_VPW_VOOR.get()) != 0.05 and (float(entry_VPW_VOOR.get()) < 0.1 or float(entry_VPW_VOOR.get()) > 1.9 )):
+                            if(float(entry_VPW_VOOR.get()) < 1 and float(entry_VPW_VOOR.get()) > 30 ):
                                 bad_param.config(text = "VOOR Ventricular Pulse Width is out of range")
                                 flag = False
 
-                            if(float(entry_AT_VOOR.get()) < 150 or float(entry_AT_VOOR.get()) > 500 ):
+                            if(float(entry_AT_VOOR.get()) < 1 or float(entry_AT_VOOR.get()) > 7 ):
                                 bad_param.config(text = "VOOR Activity Threshold is out of range")
                                 flag = False
                             if(float(entry_RF_VOOR.get()) < 1 or float(entry_RF_VOOR.get()) > 16):
@@ -756,18 +758,18 @@ class MainScreen:
                             if(float(entry_VA_VVIR.get()) != 0 and (float(entry_VA_VVIR.get()) < 0.5 or float(entry_VA_VVIR.get()) > 3.2) and (float(entry_VA_VVIR.get()) < 3.5 or float(entry_VA_VVIR.get()) > 7.0)):
                                 bad_param.config(text = "VVIR Ventricular Amplitude is out of range")
                                 flag = False
-                            if(float(entry_VPW_VVIR.get()) != 0.05 and (float(entry_VPW_VVIR.get()) < 0.1 or float(entry_VPW_VVIR.get()) > 1.9 )):
+                            if(float(entry_VPW_VVIR.get()) < 1 and float(entry_VPW_VVIR.get()) > 30 ):
                                 bad_param.config(text = "VVIR Ventricular Pulse Width is out of range")
                                 flag = False
 
-                            if(float(entry_VS_VVIR.get()) != 0.25 and float(entry_VS_VVIR.get()) != 0.50 and float(entry_VS_VVIR.get()) != 0.75 and (float(entry_VS_VVIR.get()) < 1  or float(entry_VS_VVIR.get()) > 10)):
+                            if(float(entry_VS_VVIR.get()) < 0 and float(entry_VS_VVIR.get()) > 5):
                                 bad_param.config(text = "VVIR Ventricular Sensitivity is out of range")
                                 flag = False
                             if(float(entry_VRP_VVIR.get()) < 150 or float(entry_VRP_VVIR.get()) > 500 ):
                                 bad_param.config(text = "VVIR VRP is out of range")
                                 flag = False    
 
-                            if(float(entry_AT_VVIR.get()) < 150 or float(entry_AT_VVIR.get()) > 500 ):
+                            if(float(entry_AT_VVIR.get()) < 1 or float(entry_AT_VVIR.get()) > 7 ):
                                 bad_param.config(text = "VVIR Activity Threshold is out of range")
                                 flag = False
                             if(float(entry_RF_VVIR.get()) < 1 or float(entry_RF_VVIR.get()) > 16):
@@ -910,17 +912,17 @@ class MainScreen:
         label_upper_rate_limit.grid(row=5, column=0, pady=10, padx=(20,0), sticky="w")
         label_atrial_amp = tk.Label(main_window, text="Atrial Amplitude (Volts) (0,0.5-3.2,3.5-7.0)")
         label_atrial_amp.grid(row=6, column=0, pady=10, padx=(20,0), sticky="w")
-        label_atrial_pulse_width = tk.Label(main_window, text="Atrial Pulse Width (nanoseconds) (0.05, 0.1 - 1.9)")
+        label_atrial_pulse_width = tk.Label(main_window, text="Atrial Pulse Width (milliseconds) (1-30)")
         label_atrial_pulse_width.grid(row=7, column=0, pady=10, padx=(20,0), sticky="w")
         label_ventricular_amp = tk.Label(main_window, text="Ventricular Amplitude (Volts) (0,0.5-3.2,3.5-7.0)")
         label_ventricular_amp.grid(row=8, column=0, pady=10, padx=(20,0), sticky="w")
-        label_ventricular_pulse_width = tk.Label(main_window, text="Ventricular Pulse Width (Nanoseconds) (0.05, 0.1 - 1.9)")
+        label_ventricular_pulse_width = tk.Label(main_window, text="Ventricular Pulse Width (milliseconds)  (1-30)")
         label_ventricular_pulse_width.grid(row=9, column=0, pady=10, padx=(20,0), sticky="w")
-        label_ventricular_sensitivity = tk.Label(main_window, text="Ventricular Sensitivity (milivolts) (0.25, 0.5, 0.75, 1.0 - 10)")
+        label_ventricular_sensitivity = tk.Label(main_window, text="Ventricular Sensitivity (milivolts) (0-5)")
         label_ventricular_sensitivity.grid(row=10, column=0, pady=10, padx=(20,0), sticky="w")
 
         #Displaying programmable parameters labels in 2nd column
-        label_atrial_sensitivity = tk.Label(main_window, text="Atrial Sensitivity (milivolts) (0.25, 0.5, 0.75, 1.0 - 10)")
+        label_atrial_sensitivity = tk.Label(main_window, text="Atrial Sensitivity (milivolts) (0-5)")
         label_atrial_sensitivity.grid(row=4, column=2, pady=(20,10), padx=(20,0), sticky="w")
         label_ARP = tk.Label(main_window, text="ARP (miliseconds) (150 - 500)")
         label_ARP.grid(row=5, column=2, pady=10, padx=(20,0), sticky="w")
@@ -936,7 +938,7 @@ class MainScreen:
         label_maximum_sensor_rate = tk.Label(main_window, text="maximum sensor rate (ppm) (30-175)")
         label_maximum_sensor_rate.grid(row=10, column=2, pady=10, padx=(20,0), sticky="w")
 
-        label_activity_threshold = tk.Label(main_window, text="activity threshold V-Low, Low, Med-Low, Med, Med-High, High, V-High")
+        label_activity_threshold = tk.Label(main_window, text="activity threshold V-Low, Low, Med-Low, Med, Med-High, High, V-High (1-7)")
         label_activity_threshold.grid(row=11, column=0, pady=10, padx=(20,0), sticky="w")
 
         label_reaction_time = tk.Label(main_window, text="reaction time (seconds) (10-50)")
