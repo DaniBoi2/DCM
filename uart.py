@@ -9,7 +9,7 @@ import serial
 import matplotlib.pyplot as plt
 import numpy as np
 
-class Egram:
+class Uart:
     def __init__(self, filename, x_offset, y_offset):
         self.filename = filename
         self.x_offset = x_offset
