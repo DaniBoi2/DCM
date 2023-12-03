@@ -4,7 +4,7 @@ import json
 import os
 import serial
 
-from egram import Egram
+from uart import Uart
 
 class MainScreen:
     def __init__(self, filename, x_offset, y_offset, welcome):
@@ -18,7 +18,7 @@ class MainScreen:
         self.egramY = []
 
         # instantiate classes here
-        self.egram = Egram(self.filename, self.x_offset, self.y_offset)
+        self.uart = Uart(self.filename, self.x_offset, self.y_offset)
         
 
     
@@ -65,13 +65,13 @@ class MainScreen:
         label_connection.grid(row=10, column=5, sticky="n")
         button_save_state = tk.Button(main_window, text = "Save State", command=lambda : save_state(user_name))
         button_save_state.grid(row = 7, column = 5, sticky="s")
-        button_egram_window = tk.Button(main_window, text = "egram display", command=lambda : self.egram.egram_screen())
+        button_egram_window = tk.Button(main_window, text = "egram display", command=lambda : self.uart.egram_screen())
         button_egram_window.grid(row = 6, column = 5, pady=20,sticky="s")
         label_state = tk.Label(main_window, text="State")  #Used to show the current state (AOO,VOO...etc)
         label_state.grid(row=2, column=0, sticky="nw")
         bad_param = tk.Label(main_window, text = "", wraplength=150)  #Used to show error msgs
         bad_param.grid(row = 8, column = 5, sticky="n", pady=5)
-        button_transmit_data = tk.Button(main_window, text = "Transmit", command=lambda : self.egram.transmit_data(user, label_state.cget("text").split("State: ")[0] if len(label_state.cget("text").split("State: ")) == 1 else label_state.cget("text").split("State: ")[1])) 
+        button_transmit_data = tk.Button(main_window, text = "Transmit", command=lambda : self.uart.transmit_data(user, label_state.cget("text").split("State: ")[0] if len(label_state.cget("text").split("State: ")) == 1 else label_state.cget("text").split("State: ")[1])) 
         button_transmit_data.grid(row = 11, column = 5, pady=20,sticky="s")
         button_transmit_data.config(state=tk.DISABLED)
 
